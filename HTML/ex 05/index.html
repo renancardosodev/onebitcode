@@ -1,0 +1,59 @@
+<!-- Nome, que deve ser um input de texto
+Email, que deve ser um input de email
+WhatsApp, que deve ser um input de telefone
+Área de atuação, que deve ser um input de radio com as opções: Desenvolvimento, Quality Assurance (QA), Análise de Dados e Infraestrutura
+Observações, que deve ser uma textarea
+Uma checkbox com o rótulo “Desejo receber novidades e ofertas por email.” -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <h1>Formuláro de Inscrição</h1>
+    <form action="#" method="post">
+        <div class="form">
+            <label for="name">Nome:</label><br>
+            <input type="text" name="name" id="name" required><br>
+
+            <label for="email">E-mail:</label><br>
+            <input type="email" name="email" id="email" required><br>
+            
+            <label for="whatsapp">WhatsApp:</label><br>
+            <input type="tel" name="whatsapp" id="whatsapp">
+        </div><br>
+
+        <div class="area-atuacao">
+            <label>Área de atuação:</label>
+            <div class="check">
+                <input type="radio" name="atuacao" id="dev" value="dev">
+                <label for="dev">Desenvolvedor</label>
+
+                <input type="radio" name="atuacao" id="qa" value="qa">
+                <label for="qa">QA</label>
+
+                <input type="radio" name="atuacao" id="dados" value="dados">
+                <label for="dados">Análise de dados</label>
+
+                <input type="radio" name="atuacao" id="infra" value="infra">
+                <label for="infra">Infraestrutura</label>
+            </div>
+        </div><br>
+
+        <div class="obs">
+            <label for="obs">Observações:</label><br>
+            <textarea name="obs" id="obs" cols="30" rows="3"></textarea>
+        </div><br>
+
+        <div class="newsletter">
+            <input type="checkbox" name="newsletter" id="newsletter" checked required>
+            <label for="newsletter">Desejo receber emails</label>
+        </div><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

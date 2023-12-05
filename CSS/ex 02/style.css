@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    margin: 40px;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+}
+
+li {
+    background-color: rgb(61, 61, 61);
+    padding: 30px;
+    height: 200px;
+
+    color: #fff;
+    border-radius: 5px;
+    /* border: 4px solid transparent; */
+}
+
+.selected {
+    border: 4px solid blue;
+    background-color: rgb(87, 87, 87);
+}
+
+.hidden{
+    display: none;
+}
