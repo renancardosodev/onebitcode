@@ -26,7 +26,7 @@ function listarVagas() {
 function adicionarVaga() {
     let nomeVaga = prompt('Informe o nome da vaga:')
     let descricao = prompt('Faça uma breve descrição da vaga:')
-    let data = Date(prompt('Informe a data limite:'))
+    let data = prompt('Informe a data limite: dd/mm/aaaa')
     
     let mensagemConfirmacao = confirm('Essas informações estão corretas?\n' + 
                                     '\nNome da Vaga: ' + nomeVaga + 
