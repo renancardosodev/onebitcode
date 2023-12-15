@@ -2,11 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
-:root{
-    --cor_clara: #098151;
-    --cor_escura: #044d30;
-}
-
 *{
     padding: 0;
     margin: 0;
@@ -62,7 +57,7 @@ img{
     height: 100%;
     background-color: #fff;
     border-radius: 0 5rem 5rem 0;
-    padding: 3rem;
+    padding: 5rem;
 
     display: flex;
     align-items: center;
@@ -70,14 +65,17 @@ img{
     flex-direction: column;
 }
 
-h1{
-    font-size: 6rem;
-    text-align: center;
+.sectionForm h1{
+    font-size: 4rem;
     color: #044d30;
     font-weight: 800;
-    line-height: 5rem;
+    line-height: 4rem;
+}
 
-    margin-bottom: 5rem;
+.sectionForm p{
+    margin: 2rem 0 4rem 0;
+    color: #00000094;
+    font-size: 1.1rem;
 }
 
 nav{
@@ -87,7 +85,7 @@ nav{
 .twoButtons{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     list-style: none;
 }
 
@@ -95,14 +93,18 @@ nav{
     background-color: #044d30;
     color: white;
     font-size: 1.5rem;
-    padding: 1.4rem 2.4rem;
+    font-weight: 600;
+
+    padding: 1.2rem 3.5rem;
     border-radius: 5rem;
     border: none;
+    box-shadow: 3px 3px 10px #044d3028;
 }
 
 .buttonMenu:hover{
     background-color:#098151;
     cursor: pointer;
+    box-shadow: 2px 2px 15px #044d305b;
 }
 
 footer{
