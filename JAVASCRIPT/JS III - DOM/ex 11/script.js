@@ -2,6 +2,33 @@ function remover(){
 
 }
 
+
+// --------------------------------  CONFIRMAÇÃO DE DADOS PARA SALVAR NA LISTA DE JOGADORES  -----------------------------
+function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores){
+    const spanConfirmarDados = document.createElement('span')
+    const pConfirmarDados = document.createElement('p')
+    const buttonConfirmarDados = document.createElement('button')
+
+    spanConfirmarDados.id = 'confirmDados'
+    buttonConfirmarDados.className = 'buttonEnviar'
+    buttonConfirmarDados.innerText = 'Sim'
+    pConfirmarDados.innerText = 'Aperte em "Sim" caso os dados do jogador estejam corretos.'
+    
+    spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
+    inputs.appendChild(spanConfirmarDados)
+
+    buttonConfirmarDados.addEventListener('click', () => {
+        listJogadores.push({posicao: inputPosicao.value, nome: inputNome.value, numeroCamisa: inputNumCamisa.value})
+        form.reset();
+
+        buttonConfirmarDados.remove()
+        pConfirmarDados.innerText = 'Enviado!'
+        setTimeout(()=>pConfirmarDados.remove(), 2000)
+    })
+}
+ 
+
+// --------------------------------  VALIDAR PARA VER SE ALGUM CAMPO ESTÁ VAZIO  -----------------------------
 function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
     if (inputPosicao.value == ''){
         return false
@@ -14,26 +41,31 @@ function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
     }
 }
 
-function creatSpan(inputPosicao, inputNome, inputNumCamisa){
-    const temSpan = document.getElementById('validacaoInputs')
+
+// --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
+function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores){
+    const temDiv = document.getElementById('validacaoInputs')
 
     if (validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa)){
-        if (temSpan){
-            temSpan.remove()
+        if (temDiv){
+            temDiv.remove()
         }
-        form.reset();
-    }else {
-        if(!temSpan){
-            const spanValidacao = document.createElement('span')
-            spanValidacao.id = 'validacaoInputs'
-            spanValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
+        enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
 
-            inputs.appendChild(spanValidacao)
+    }else {
+        if(!temDiv){
+            const divValidacao = document.createElement('div')
+            divValidacao.id = 'validacaoInputs'
+            divValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
+
+            inputs.appendChild(divValidacao)
         }
     }
 }
 
-function adicionar(){
+
+// --------------------------------  FUNÇÕES DO BOTÃO ADICIONAR  -----------------------------
+function adicionar(listJogadores){
     const inputs = document.getElementById('inputs')
 
     const h2 = document.createElement('h2')
@@ -79,7 +111,7 @@ function adicionar(){
 
     submit.innerText = 'Enviar'
     submit.type = 'submit'
-    submit.className = 'submit'
+    submit.className = 'buttonEnviar'
 
     form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
     inputs.append(h2, form)
@@ -87,14 +119,25 @@ function adicionar(){
 
     form.addEventListener('submit', function(event) {
         event.preventDefault()
-        creatSpan(inputPosicao, inputNome, inputNumCamisa)        
+        preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
     })
+
 }
 
+
+// --------------------------------  PRINCIPAL  -----------------------------
 const adicionarJogador = document.getElementById('adicionar')
 const removerJogador = document.getElementById('remover')
+const listJogadores = []
+let botaoApertado = true
 
-adicionarJogador.addEventListener('click', adicionar)
+adicionarJogador.addEventListener('click', () => {
+    if (botaoApertado){
+        adicionar(listJogadores)
+    } 
+    botaoApertado = false 
+})
+
 // removerJogador.addEventListener('click', remover)
 
 
