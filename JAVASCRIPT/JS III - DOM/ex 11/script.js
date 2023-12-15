@@ -1,5 +1,34 @@
 function remover(){
+    const inputs = document.getElementById('inputs')
 
+    const h2 = document.createElement('h2')
+    const p = document.createElement('p')
+
+    const form = document.createElement('form')
+    const label = document.createElement('label')
+    const inputCamisa = document.createElement('input')
+    const submit = document.createElement('button')
+
+    h2.innerText = 'Remover jogador'
+    p.innerText = 'Informe o número da camisa para remover o jogador do seu time.'
+
+    label.htmlFor = 'camisa'
+    label.innerText = 'Número da camisa'
+
+    inputCamisa.name = 'camisa'
+    inputCamisa.id = 'camisa'
+    inputCamisa.type = 'text'
+
+    submit.innerText = 'Remover'
+    submit.className = 'buttonEnviar'
+    submit.type = 'submit'
+
+    form.append(label, inputCamisa, submit)
+    inputs.append(h2, p, form)
+
+    submit.addEventListener('click', (event)=>{
+        event.preventDefault()
+    })
 }
 
 
@@ -95,27 +124,23 @@ function adicionar(listJogadores){
     inputPosicao.type = 'text'
     inputPosicao.id = 'position'
     inputPosicao.className = 'inputs'
-    // inputPosicao.value = 'position'
 
     inputNome.name = 'name'
     inputNome.type = 'text'
     inputNome.id = 'name'
     inputNome.className = 'inputs'
-    // inputNome.value = 'name'
 
     inputNumCamisa.name = 'num'
     inputNumCamisa.type = 'number'
     inputNumCamisa.id = 'num'
     inputNumCamisa.className = 'inputs'
-    // inputNumCamisa.value = 'num'
 
-    submit.innerText = 'Enviar'
+    submit.innerText = 'Adicionar'
     submit.type = 'submit'
     submit.className = 'buttonEnviar'
 
     form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
     inputs.append(h2, form)
-
 
     form.addEventListener('submit', function(event) {
         event.preventDefault()
@@ -131,13 +156,18 @@ const removerJogador = document.getElementById('remover')
 const listJogadores = []
 let botaoApertado = true
 
-adicionarJogador.addEventListener('click', () => {
+// adicionarJogador.addEventListener('click', () => {
+//     if (botaoApertado){
+//         adicionar(listJogadores)
+//     } 
+//     botaoApertado = false 
+// })
+
+removerJogador.addEventListener('click', () => {
     if (botaoApertado){
-        adicionar(listJogadores)
+        remover()
     } 
     botaoApertado = false 
 })
-
-// removerJogador.addEventListener('click', remover)
 
 
