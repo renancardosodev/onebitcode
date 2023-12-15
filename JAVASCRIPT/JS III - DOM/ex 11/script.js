@@ -2,14 +2,39 @@ function remover(){
 
 }
 
-function verificacao(){
+function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
+    if (inputPosicao.value == ''){
+        return false
+    }else if(inputNome.value == ''){
+        return false
+    }else if (inputNumCamisa.value == ''){
+        return false
+    }else{
+        return true
+    }
+}
 
+function creatSpan(inputPosicao, inputNome, inputNumCamisa){
+    const temSpan = document.getElementById('validacaoInputs')
+
+    if (validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa)){
+        if (temSpan){
+            temSpan.remove()
+        }
+        form.reset();
+    }else {
+        if(!temSpan){
+            const spanValidacao = document.createElement('span')
+            spanValidacao.id = 'validacaoInputs'
+            spanValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
+
+            inputs.appendChild(spanValidacao)
+        }
+    }
 }
 
 function adicionar(){
     const inputs = document.getElementById('inputs')
-
-    
 
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
@@ -18,9 +43,9 @@ function adicionar(){
     const labelnome = document.createElement('label')
     const labelNumCamisa = document.createElement('label')
 
-    const posicao = document.createElement('input')
-    const nome = document.createElement('input')
-    const numCamisa = document.createElement('input')
+    const inputPosicao = document.createElement('input')
+    const inputNome = document.createElement('input')
+    const inputNumCamisa = document.createElement('input')
     const submit = document.createElement('button')
 
     h2.innerText = 'Dados do jogador:'
@@ -34,42 +59,42 @@ function adicionar(){
     labelNumCamisa.innerText = 'Número da camisa: '
     labelNumCamisa.htmlFor = 'num'
 
-    posicao.name = 'position'
-    posicao.type = 'text'
-    posicao.id = 'position'
-    posicao.className = 'inputs'
-    // posicao.value = 'position'
+    inputPosicao.name = 'position'
+    inputPosicao.type = 'text'
+    inputPosicao.id = 'position'
+    inputPosicao.className = 'inputs'
+    // inputPosicao.value = 'position'
 
-    nome.name = 'name'
-    nome.type = 'text'
-    nome.id = 'name'
-    nome.className = 'inputs'
-    // nome.value = 'name'
+    inputNome.name = 'name'
+    inputNome.type = 'text'
+    inputNome.id = 'name'
+    inputNome.className = 'inputs'
+    // inputNome.value = 'name'
 
-    numCamisa.name = 'num'
-    numCamisa.type = 'number'
-    numCamisa.id = 'num'
-    numCamisa.className = 'inputs'
-    // numCamisa.value = 'num'
+    inputNumCamisa.name = 'num'
+    inputNumCamisa.type = 'number'
+    inputNumCamisa.id = 'num'
+    inputNumCamisa.className = 'inputs'
+    // inputNumCamisa.value = 'num'
 
     submit.innerText = 'Enviar'
     submit.type = 'submit'
     submit.className = 'submit'
 
-    form.append(labelposicao, posicao, labelnome, nome, labelNumCamisa, numCamisa, submit)
+    form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
     inputs.append(h2, form)
 
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        form.reset();
-    });
+        event.preventDefault()
+        creatSpan(inputPosicao, inputNome, inputNumCamisa)        
+    })
 }
 
-const adicionarJogador = document.getElementsByClassName('adicionar')
-const removerJogador = document.getElementsByClassName('remover')
+const adicionarJogador = document.getElementById('adicionar')
+const removerJogador = document.getElementById('remover')
 
 adicionarJogador.addEventListener('click', adicionar)
-removerJogador.addEventListener('click', remover)
+// removerJogador.addEventListener('click', remover)
 
 
