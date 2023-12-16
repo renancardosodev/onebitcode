@@ -92,6 +92,7 @@ function remover(listJogadores, inputs){
     submit.innerText = 'Remover'
     submit.className = 'buttonEnviar'
     submit.type = 'submit'
+    submit.id = 'btnRemover'
 
     form.append(label, inputCamisa, submit)
     inputs.append(h2, p, form)
@@ -195,7 +196,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, in
 
 
 // --------------------------------  FUNÇÕES DO BOTÃO ADICIONAR  -----------------------------
-function adicionar(listJogadores, inputs,secaoTexto){
+function adicionar(listJogadores, inputs){
 
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
@@ -239,6 +240,7 @@ function adicionar(listJogadores, inputs,secaoTexto){
     submit.innerText = 'Adicionar'
     submit.type = 'submit'
     submit.className = 'buttonEnviar'
+    submit.id = 'btnAdicionar'
 
     spanConfirmarDados.id = 'confirmDados'
 
@@ -277,12 +279,28 @@ adicionarJogador.addEventListener('click', () => {
     secaoTexto.classList.add('showList')
     inputs.textContent = ''
     adicionar(listJogadores,inputs)
+
+    let targetElement = document.getElementById('btnAdicionar');
+  
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
 })
 
 removerJogador.addEventListener('click', () => {
     secaoTexto.classList.add('showList')
     inputs.textContent = ''
     remover(listJogadores,inputs)
+
+    let targetElement = document.getElementById('btnRemover');
+  
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
 })
 
 
