@@ -1,3 +1,63 @@
+// --------------------------------  CONFIRMAÇÃO DE DADOS PARA SALVAR NA LISTA DE JOGADORES  -----------------------------
+function excluirJogador(inputCamisa, form, inputs, listJogadores){
+    const spanConfirmarDados = document.createElement('span')
+    const pConfirmarDados = document.createElement('p')
+    const buttonConfirmarDados = document.createElement('button')
+
+    spanConfirmarDados.id = 'confirmDados'
+    buttonConfirmarDados.className = 'buttonEnviar'
+    buttonConfirmarDados.type = 'submit'
+    buttonConfirmarDados.innerText = 'Excluir'
+    pConfirmarDados.innerText = 'Aperte em "Excluir" para excluir.'
+    
+    spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
+    inputs.appendChild(spanConfirmarDados)
+
+    console.log(listJogadores)
+
+    buttonConfirmarDados.addEventListener('click', () => {
+        const index = listJogadores.findIndex(e =>  e.numeroCamisa == inputCamisa.value)
+        listJogadores.splice(index,1)
+
+        form.reset();
+        buttonConfirmarDados.remove()
+        pConfirmarDados.innerText = 'Jogador Excluído!'
+        setTimeout(()=>pConfirmarDados.remove(), 2000)
+        console.log(listJogadores)
+    })
+    
+}
+
+// --------------------------------  VALIDAR REMOVER PARA VER SE ALGUM CAMPO ESTÁ VAZIO  -----------------------------
+function validacaoDadosRemocao(inputCamisa){
+    if (inputCamisa.value == ''){
+        return false
+    }else {
+        return true
+    }
+}
+
+// --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
+function preencherCamposRemocao(inputCamisa, form, inputs, listJogadores){
+    const temDiv = document.getElementById('validacaoInputs')
+
+    if (validacaoDadosRemocao(inputCamisa)){
+        if (temDiv){
+            temDiv.remove()
+        }
+       excluirJogador(inputCamisa, form, inputs, listJogadores)
+
+    }else {
+        if(!temDiv){
+            const divValidacao = document.createElement('div')
+            divValidacao.id = 'validacaoInputs'
+            divValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
+
+            inputs.appendChild(divValidacao)
+        }
+    }
+}
+
 function remover(listJogadores, inputs){
     const h2 = document.createElement('h2')
     const p = document.createElement('p')
@@ -24,10 +84,9 @@ function remover(listJogadores, inputs){
     form.append(label, inputCamisa, submit)
     inputs.append(h2, p, form)
 
-    submit.addEventListener('click', (event)=>{
+    submit.addEventListener('click', function (event){
         event.preventDefault()
-        const index = listJogadores.findIndex(e =>  e.numeroCamisa == inputCamisa.value)
-        listJogadores.splice(index,1)
+        preencherCamposRemocao(inputCamisa, form, inputs, listJogadores)
     })
 }
 
@@ -40,6 +99,7 @@ function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, list
 
     spanConfirmarDados.id = 'confirmDados'
     buttonConfirmarDados.className = 'buttonEnviar'
+    buttonConfirmarDados.type = 'submit'
     buttonConfirmarDados.innerText = 'Sim'
     pConfirmarDados.innerText = 'Aperte em "Sim" caso os dados do jogador estejam corretos.'
     
@@ -57,7 +117,7 @@ function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, list
 }
  
 
-// --------------------------------  VALIDAR PARA VER SE ALGUM CAMPO ESTÁ VAZIO  -----------------------------
+// --------------------------------  VALIDAR ADICIONAR PARA VER SE ALGUM CAMPO ESTÁ VAZIO  -----------------------------
 function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
     if (inputPosicao.value == ''){
         return false
@@ -161,7 +221,6 @@ adicionarJogador.addEventListener('click', () => {
 })
 
 removerJogador.addEventListener('click', () => {
-
     inputs.textContent= ''
     remover(listJogadores,inputs)
 })
