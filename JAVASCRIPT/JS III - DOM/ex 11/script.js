@@ -45,7 +45,7 @@ function preencherCamposRemocao(inputCamisa, form, inputs, listJogadores){
         if (temDiv){
             temDiv.remove()
         }
-       excluirJogador(inputCamisa, form, inputs, listJogadores)
+       return true
 
     }else {
         if(!temDiv){
@@ -54,6 +54,7 @@ function preencherCamposRemocao(inputCamisa, form, inputs, listJogadores){
             divValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
 
             inputs.appendChild(divValidacao)
+            return false
         }
     }
 }
@@ -84,9 +85,17 @@ function remover(listJogadores, inputs){
     form.append(label, inputCamisa, submit)
     inputs.append(h2, p, form)
 
+    let controleDeClicks = true
+
     submit.addEventListener('click', function (event){
         event.preventDefault()
-        preencherCamposRemocao(inputCamisa, form, inputs, listJogadores)
+        if (preencherCamposRemocao(inputCamisa, form, inputs, listJogadores)){
+            if(controleDeClicks){
+                excluirJogador(inputCamisa, form, inputs, listJogadores)
+                controleDeClicks = false
+            }
+        }
+        console.log(listJogadores)
     })
 }
 
@@ -139,7 +148,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, fo
         if (temDiv){
             temDiv.remove()
         }
-        enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
+        return true
 
     }else {
         if(!temDiv){
@@ -148,6 +157,8 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, fo
             divValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
 
             inputs.appendChild(divValidacao)
+
+            return false
         }
     }
 }
@@ -200,9 +211,18 @@ function adicionar(listJogadores, inputs){
     form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
     inputs.append(h2, form)
 
+    let controleDeClicks = true
+
     form.addEventListener('submit', function(event) {
         event.preventDefault()
-        preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
+
+        if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)){
+            if(controleDeClicks){
+                enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
+                controleDeClicks = false
+            }
+        }
+        console.log(listJogadores)
     })
 
 }
