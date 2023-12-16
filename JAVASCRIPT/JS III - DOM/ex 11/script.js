@@ -110,19 +110,19 @@ function remover(listJogadores, inputs){
 
 
 // --------------------------------  CONFIRMAÇÃO DE DADOS PARA SALVAR NA LISTA DE JOGADORES  -----------------------------
-function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores){
-    const spanConfirmarDados = document.createElement('span')
+function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores,spanConfirmarDados){
+
     const pConfirmarDados = document.createElement('p')
     const buttonConfirmarDados = document.createElement('button')
 
-    spanConfirmarDados.id = 'confirmDados'
+    
     buttonConfirmarDados.className = 'buttonEnviar'
     buttonConfirmarDados.type = 'submit'
     buttonConfirmarDados.innerText = 'Sim'
     pConfirmarDados.innerText = 'Aperte em "Sim" caso os dados do jogador estejam corretos.'
     
     spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
-    inputs.appendChild(spanConfirmarDados)
+    
 
     buttonConfirmarDados.addEventListener('click', () => {
         listJogadores.push({posicao: inputPosicao.value, nome: inputNome.value, numeroCamisa: inputNumCamisa.value})
@@ -152,12 +152,23 @@ function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
 // --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
 function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores){
     const temDiv = document.getElementById('validacaoInputs')
+    const divValidacao = document.createElement('div')
+    divValidacao.id = 'validacaoInputs'
+
+    const existe = listJogadores.some(e=> e.numeroCamisa == inputNumCamisa.value)
 
     if (validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa)){
         if (temDiv){
             temDiv.remove()
         }
-        return true
+        
+        if (existe){
+            divValidacao.innerText = 'Esse jogador já existe, remova o jogador para adicionar um novo.'
+            inputs.appendChild(divValidacao)
+            return false
+        }else{
+            return true
+        }
 
     }else {
         if(!temDiv){
@@ -177,6 +188,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, in
 function adicionar(listJogadores, inputs){
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
+    const spanConfirmarDados = document.createElement('span')
 
     const labelposicao = document.createElement('label')
     const labelnome = document.createElement('label')
@@ -217,19 +229,17 @@ function adicionar(listJogadores, inputs){
     submit.type = 'submit'
     submit.className = 'buttonEnviar'
 
-    form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
-    inputs.append(h2, form)
+    spanConfirmarDados.id = 'confirmDados'
 
-    let controleDeClicks = true
+    form.append(labelposicao, inputPosicao, labelnome, inputNome, labelNumCamisa, inputNumCamisa, submit)
+    inputs.append(h2, form, spanConfirmarDados)
 
     form.addEventListener('submit', function(event) {
         event.preventDefault()
+        spanConfirmarDados.innerHTML = ''
 
         if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores)){
-            if(controleDeClicks){
-                enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
-                controleDeClicks = false
-            }
+            enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores,spanConfirmarDados)
         }
         console.log(listJogadores)
     })
