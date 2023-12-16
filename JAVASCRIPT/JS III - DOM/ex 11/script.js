@@ -1,6 +1,4 @@
-function remover(){
-    const inputs = document.getElementById('inputs')
-
+function remover(listJogadores, inputs){
     const h2 = document.createElement('h2')
     const p = document.createElement('p')
 
@@ -28,6 +26,8 @@ function remover(){
 
     submit.addEventListener('click', (event)=>{
         event.preventDefault()
+        const index = listJogadores.findIndex(e =>  e.numeroCamisa == inputCamisa.value)
+        listJogadores.splice(index,1)
     })
 }
 
@@ -94,9 +94,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, fo
 
 
 // --------------------------------  FUNÇÕES DO BOTÃO ADICIONAR  -----------------------------
-function adicionar(listJogadores){
-    const inputs = document.getElementById('inputs')
-
+function adicionar(listJogadores, inputs){
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
 
@@ -153,21 +151,19 @@ function adicionar(listJogadores){
 // --------------------------------  PRINCIPAL  -----------------------------
 const adicionarJogador = document.getElementById('adicionar')
 const removerJogador = document.getElementById('remover')
-const listJogadores = []
-let botaoApertado = true
+const inputs = document.getElementById('inputs')
 
-// adicionarJogador.addEventListener('click', () => {
-//     if (botaoApertado){
-//         adicionar(listJogadores)
-//     } 
-//     botaoApertado = false 
-// })
+const listJogadores = []
+
+adicionarJogador.addEventListener('click', () => {
+    inputs.textContent= ''
+    adicionar(listJogadores,inputs)
+})
 
 removerJogador.addEventListener('click', () => {
-    if (botaoApertado){
-        remover()
-    } 
-    botaoApertado = false 
+
+    inputs.textContent= ''
+    remover(listJogadores,inputs)
 })
 
 
