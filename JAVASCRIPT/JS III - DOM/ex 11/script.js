@@ -38,18 +38,28 @@ function validacaoDadosRemocao(inputCamisa){
 }
 
 // --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
-function preencherCamposRemocao(inputCamisa, form, inputs, listJogadores){
+function preencherCamposRemocao(inputCamisa, inputs, listJogadores){
     const temDiv = document.getElementById('validacaoInputs')
+    const divValidacao = document.createElement('div')
+    divValidacao.id = 'validacaoInputs'
 
+    const existe = listJogadores.some(e=> e.numeroCamisa == inputCamisa.value)
+ 
     if (validacaoDadosRemocao(inputCamisa)){
         if (temDiv){
             temDiv.remove()
+        } 
+        if (existe){
+            return true
+            
+        }else{
+            divValidacao.innerText = 'Esse jogador não existe!'
+            inputs.appendChild(divValidacao)
+            return false
         }
-       return true
-
     }else {
+        
         if(!temDiv){
-            const divValidacao = document.createElement('div')
             divValidacao.id = 'validacaoInputs'
             divValidacao.innerText = 'Verifique se todos os campos estão preenchidos corretamente.'
 
@@ -89,13 +99,12 @@ function remover(listJogadores, inputs){
 
     submit.addEventListener('click', function (event){
         event.preventDefault()
-        if (preencherCamposRemocao(inputCamisa, form, inputs, listJogadores)){
+        if (preencherCamposRemocao(inputCamisa, inputs, listJogadores)){
             if(controleDeClicks){
                 excluirJogador(inputCamisa, form, inputs, listJogadores)
                 controleDeClicks = false
             }
         }
-        console.log(listJogadores)
     })
 }
 
@@ -141,7 +150,7 @@ function validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa){
 
 
 // --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
-function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores){
+function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores){
     const temDiv = document.getElementById('validacaoInputs')
 
     if (validacaoDadosPreenchidos(inputPosicao, inputNome, inputNumCamisa)){
@@ -216,7 +225,7 @@ function adicionar(listJogadores, inputs){
     form.addEventListener('submit', function(event) {
         event.preventDefault()
 
-        if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)){
+        if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores)){
             if(controleDeClicks){
                 enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores)
                 controleDeClicks = false
