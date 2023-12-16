@@ -6,6 +6,7 @@ function excluirJogador(inputCamisa, form, inputs, listJogadores){
 
     spanConfirmarDados.id = 'confirmDados'
     buttonConfirmarDados.className = 'buttonEnviar'
+    buttonConfirmarDados.id = 'buttonEnviar'
     buttonConfirmarDados.type = 'submit'
     buttonConfirmarDados.innerText = 'Excluir'
     pConfirmarDados.innerText = 'Aperte em "Excluir" para excluir.'
@@ -105,6 +106,14 @@ function remover(listJogadores, inputs){
                 controleDeClicks = false
             }
         }
+
+        const targetElement = document.getElementById('buttonEnviar');
+  
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
     })
 }
 
@@ -117,6 +126,7 @@ function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, list
 
     
     buttonConfirmarDados.className = 'buttonEnviar'
+    buttonConfirmarDados.id = 'buttonEnviar'
     buttonConfirmarDados.type = 'submit'
     buttonConfirmarDados.innerText = 'Sim'
     pConfirmarDados.innerText = 'Aperte em "Sim" caso os dados do jogador estejam corretos.'
@@ -186,6 +196,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, in
 
 // --------------------------------  FUNÇÕES DO BOTÃO ADICIONAR  -----------------------------
 function adicionar(listJogadores, inputs,secaoTexto){
+
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
     const spanConfirmarDados = document.createElement('span')
@@ -238,10 +249,16 @@ function adicionar(listJogadores, inputs,secaoTexto){
         event.preventDefault()
         spanConfirmarDados.innerHTML = ''
 
-    
-
         if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores)){
             enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores,spanConfirmarDados)
+        }
+
+        const targetElement = document.getElementById('buttonEnviar');
+  
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
         }
     })
 
@@ -259,13 +276,13 @@ const listJogadores = []
 adicionarJogador.addEventListener('click', () => {
     secaoTexto.classList.add('showList')
     inputs.textContent = ''
-    adicionar(listJogadores,inputs,secaoTexto)
+    adicionar(listJogadores,inputs)
 })
 
 removerJogador.addEventListener('click', () => {
     secaoTexto.classList.add('showList')
     inputs.textContent = ''
-    remover(listJogadores,inputs,secaoTexto)
+    remover(listJogadores,inputs)
 })
 
 
