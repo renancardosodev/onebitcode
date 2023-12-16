@@ -211,7 +211,7 @@ function adicionar(listJogadores, inputs){
     const inputNumCamisa = document.createElement('input')
     const submit = document.createElement('button')
 
-    h2.innerText = 'Dados do jogador:'
+    h2.innerText = 'Dados do jogador'
 
     labelposicao.innerText = 'Posição do jogador: '
     labelposicao.htmlFor = 'position'
