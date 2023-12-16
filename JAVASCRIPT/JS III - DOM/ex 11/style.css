@@ -10,6 +10,7 @@
 
 html{
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 body{
@@ -28,10 +29,18 @@ body{
     position: relative;
 }
 
+::-webkit-scrollbar{
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb{
+    width: 1rem;
+    background-color: #098151;
+    border-radius: 5rem;
+}
+
 main{
     display: flex;
-    justify-content: center;
-    align-items: center;
 
     width: 60%;
     height: 80vh;
@@ -41,6 +50,7 @@ main{
 }
 
 .sectionImage{
+    min-width: 37%;
     height: 100%;
     overflow: hidden;
     border-radius: 5rem 0 0 5rem;
@@ -54,22 +64,27 @@ img{
 }
 
 .sectionForm{
-    width: 60%;
-    height: 100%;
+    width: 100%;
+    height: auto;
     background-color: #fff;
     border-radius: 0 5rem 5rem 0;
-    padding: 5rem;
+    padding: 3rem 5rem;
 
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow-y: auto;
+}
+.showList{
+    justify-content: start;
+    transition: transform 0.3s ease;
 }
 
 .sectionForm h1{
     font-size: 4rem;
     color: #044d30;
     font-weight: 800;
-    line-height: 4rem;
 }
 
 .sectionForm p{
@@ -87,6 +102,7 @@ nav{
     align-items: center;
     justify-content: space-between;
     list-style: none;
+    gap: 1rem;
 }
 
 .buttonMenu{
@@ -95,7 +111,7 @@ nav{
     font-size: 1.5rem;
     font-weight: 600;
 
-    padding: 1.2rem 3.5rem;
+    padding: 1rem 3.5rem;
     border-radius: 5rem;
     border: none;
     box-shadow: 3px 3px 10px #044d3028;
@@ -104,7 +120,7 @@ nav{
 .buttonMenu:hover{
     background-color:#098151;
     cursor: pointer;
-    box-shadow: 2px 2px 15px #044d305b;
+    box-shadow: 2px 2px 15px #056d4381;
 }
 
 footer{
@@ -114,6 +130,60 @@ footer{
     color: #fff;
 }
 
+
+
+/* ----------  INSERÇÃO JAVASCRIPT  ---------- */
+
+#inputs > h2 {
+    padding: 6rem 0 2rem 0;
+    color: #044d30;
+}
+
+#inputs > form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    height: 2.5rem;
+    border-radius: .5rem;
+    border-color: rgba(0, 0, 0, 0.151);
+    border-width: 0.15rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+input:focus{
+    border-color: red;
+}
+
+.buttonEnviar{
+    background-color: #098151;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 15rem;
+
+    margin-top: 1rem;
+    padding: 1rem 0;
+    border-radius: 5rem;
+    border: none;
+}
+
+.buttonEnviar:hover{
+    
+    background-color:#044d30;
+    cursor: pointer;
+    box-shadow: 1px 1px 15px #056d4331;
+}
+
+#validacaoInputs {
+    color: rgb(187, 30, 30);
+    margin: 1rem 0;
+}
+
+
+/* ----------  RESPONSIVO  ---------- */
 @media screen and (max-width:1050px){
     main{
         width: auto;

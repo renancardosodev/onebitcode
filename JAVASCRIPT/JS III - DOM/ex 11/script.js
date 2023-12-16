@@ -185,7 +185,7 @@ function preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, in
 
 
 // --------------------------------  FUNÇÕES DO BOTÃO ADICIONAR  -----------------------------
-function adicionar(listJogadores, inputs){
+function adicionar(listJogadores, inputs,secaoTexto){
     const h2 = document.createElement('h2')
     const form = document.createElement('form')
     const spanConfirmarDados = document.createElement('span')
@@ -238,16 +238,18 @@ function adicionar(listJogadores, inputs){
         event.preventDefault()
         spanConfirmarDados.innerHTML = ''
 
+    
+
         if (preencherCamposCorretamente(inputPosicao, inputNome, inputNumCamisa, inputs, listJogadores)){
             enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores,spanConfirmarDados)
         }
-        console.log(listJogadores)
     })
 
 }
 
 
 // --------------------------------  PRINCIPAL  -----------------------------
+const secaoTexto = document.getElementsByClassName('sectionForm')[0]
 const adicionarJogador = document.getElementById('adicionar')
 const removerJogador = document.getElementById('remover')
 const inputs = document.getElementById('inputs')
@@ -255,13 +257,15 @@ const inputs = document.getElementById('inputs')
 const listJogadores = []
 
 adicionarJogador.addEventListener('click', () => {
-    inputs.textContent= ''
-    adicionar(listJogadores,inputs)
+    secaoTexto.classList.add('showList')
+    inputs.textContent = ''
+    adicionar(listJogadores,inputs,secaoTexto)
 })
 
 removerJogador.addEventListener('click', () => {
-    inputs.textContent= ''
-    remover(listJogadores,inputs)
+    secaoTexto.classList.add('showList')
+    inputs.textContent = ''
+    remover(listJogadores,inputs,secaoTexto)
 })
 
 
