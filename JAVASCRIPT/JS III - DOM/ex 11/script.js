@@ -1,8 +1,44 @@
+
+// ____________________________________  LISTAR  ____________________________________
+function listarJogadores (listJogadores, inputs){
+
+    const divJogadoresExistente = inputs.querySelector('.listaDeJogadores');
+    if (divJogadoresExistente) {
+        divJogadoresExistente.remove();
+    }
+
+    const divJogadores = document.createElement('div')
+    const h2Jogadores = document.createElement('h2')
+    const ul = document.createElement('ul')    
+
+    divJogadores.className = 'listaDeJogadores'
+    h2Jogadores.innerText = 'Lista dos Jogadores'
+    h2Jogadores.className = 'tituloListaDeJogadores'
+
+    divJogadores.append(h2Jogadores, ul)   
+    inputs.appendChild(divJogadores)
+
+    listJogadores.map(e=>{
+        const li = document.createElement('li')
+        li.innerText = `Posição: ${e.posicao}\n` + `Nome: ${e.nome}\n` + `Número da camisa: ${e.numeroCamisa}\n\n`
+        ul.append(li)
+    })
+}
+
+
+
+
+// ____________________________________  REMOVER  ____________________________________
+
+
+
+
 // --------------------------------  CONFIRMAÇÃO DE DADOS PARA SALVAR NA LISTA DE JOGADORES  -----------------------------
 function excluirJogador(inputCamisa, form, inputs, listJogadores){
     const spanConfirmarDados = document.createElement('span')
     const pConfirmarDados = document.createElement('p')
     const buttonConfirmarDados = document.createElement('button')
+    const divJogadores = document.createElement('div')
 
     spanConfirmarDados.id = 'confirmDados'
     buttonConfirmarDados.className = 'buttonEnviar'
@@ -12,22 +48,21 @@ function excluirJogador(inputCamisa, form, inputs, listJogadores){
     pConfirmarDados.innerText = 'Aperte em "Excluir" para excluir.'
     
     spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
-    inputs.appendChild(spanConfirmarDados)
-
-    console.log(listJogadores)
 
     buttonConfirmarDados.addEventListener('click', () => {
         const index = listJogadores.findIndex(e =>  e.numeroCamisa == inputCamisa.value)
         listJogadores.splice(index,1)
 
         form.reset();
+
         buttonConfirmarDados.remove()
         pConfirmarDados.innerText = 'Jogador Excluído!'
         setTimeout(()=>pConfirmarDados.remove(), 2000)
-        console.log(listJogadores)
+        
+        listarJogadores(listJogadores, inputs, divJogadores)
     })
-    
 }
+
 
 // --------------------------------  VALIDAR REMOVER PARA VER SE ALGUM CAMPO ESTÁ VAZIO  -----------------------------
 function validacaoDadosRemocao(inputCamisa){
@@ -37,6 +72,7 @@ function validacaoDadosRemocao(inputCamisa){
         return true
     }
 }
+
 
 // --------------------------------  CRIANDO DIV DE CAMPO VAZIO -----------------------------
 function preencherCamposRemocao(inputCamisa, inputs, listJogadores){
@@ -119,12 +155,20 @@ function remover(listJogadores, inputs){
 }
 
 
+
+
+
+// ____________________________________  ADICIONAR  ____________________________________
+
+
+
+
+
 // --------------------------------  CONFIRMAÇÃO DE DADOS PARA SALVAR NA LISTA DE JOGADORES  -----------------------------
 function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, listJogadores,spanConfirmarDados){
 
     const pConfirmarDados = document.createElement('p')
     const buttonConfirmarDados = document.createElement('button')
-
     
     buttonConfirmarDados.className = 'buttonEnviar'
     buttonConfirmarDados.id = 'buttonEnviar'
@@ -133,15 +177,17 @@ function enviarDados(inputPosicao, inputNome, inputNumCamisa, form, inputs, list
     pConfirmarDados.innerText = 'Aperte em "Sim" caso os dados do jogador estejam corretos.'
     
     spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
-    
 
     buttonConfirmarDados.addEventListener('click', () => {
         listJogadores.push({posicao: inputPosicao.value, nome: inputNome.value, numeroCamisa: inputNumCamisa.value})
+
         form.reset();
 
         buttonConfirmarDados.remove()
         pConfirmarDados.innerText = 'Enviado!'
         setTimeout(()=>pConfirmarDados.remove(), 2000)
+
+        listarJogadores(listJogadores, inputs)
     })
 }
  
@@ -265,6 +311,11 @@ function adicionar(listJogadores, inputs){
     })
 
 }
+
+
+
+// ____________________________________  ESCOPO PRINCIPAL  ____________________________________
+
 
 
 // --------------------------------  PRINCIPAL  -----------------------------
