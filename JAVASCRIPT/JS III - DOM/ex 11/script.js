@@ -38,29 +38,33 @@ function excluirJogador(inputCamisa, form, inputs, listJogadores){
     const spanConfirmarDados = document.createElement('span')
     const pConfirmarDados = document.createElement('p')
     const buttonConfirmarDados = document.createElement('button')
-    const divJogadores = document.createElement('div')
 
     spanConfirmarDados.id = 'confirmDados'
     buttonConfirmarDados.className = 'buttonEnviar'
-    buttonConfirmarDados.id = 'buttonEnviar'
     buttonConfirmarDados.type = 'submit'
     buttonConfirmarDados.innerText = 'Excluir'
     pConfirmarDados.innerText = 'Aperte em "Excluir" para excluir.'
     
     spanConfirmarDados.append(pConfirmarDados, buttonConfirmarDados)
+    inputs.appendChild(spanConfirmarDados)
+
+    console.log(listJogadores)
 
     buttonConfirmarDados.addEventListener('click', () => {
         const index = listJogadores.findIndex(e =>  e.numeroCamisa == inputCamisa.value)
         listJogadores.splice(index,1)
 
         form.reset();
-
         buttonConfirmarDados.remove()
         pConfirmarDados.innerText = 'Jogador Excluído!'
         setTimeout(()=>pConfirmarDados.remove(), 2000)
-        
-        listarJogadores(listJogadores, inputs, divJogadores)
+        console.log(listJogadores)
+
+                listarJogadores(listJogadores, inputs)
+
     })
+    
+
 }
 
 
