@@ -29,15 +29,7 @@ body{
     position: relative;
 }
 
-::-webkit-scrollbar{
-    width: 0.5rem;
-}
 
-::-webkit-scrollbar-thumb{
-    width: 1rem;
-    background-color: #098151;
-    border-radius: 5rem;
-}
 
 main{
     display: flex;
