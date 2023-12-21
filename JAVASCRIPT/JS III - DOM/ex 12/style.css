@@ -89,7 +89,7 @@ button:hover {
 #formName label {
     position: absolute;
     left: 4px;
-    top: 23.5rem;
+    top: 25rem;
     pointer-events: none;
     padding: 1rem;
     color: #00000083;
@@ -100,7 +100,14 @@ button:hover {
     align-self: flex-start;
     font-size: 4rem;
     font-weight: 500;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem 0;
+}
+
+#formName p {
+    align-self: flex-start;
+    font-size: 1.3rem;
+    color: #000000a9;
+    margin-bottom: 3rem;
 }
 
 .sectionBanner {
