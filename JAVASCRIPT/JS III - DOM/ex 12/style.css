@@ -5,6 +5,7 @@
 
 :root {
     --cor_padrao: #e7c9ff;
+    --cor_ativa: #cca9e9;
 }
 
 * {
@@ -51,7 +52,6 @@ input {
     font-weight: 500;
 }
 
-
 button {
     width: 100%;
     padding: 0.8rem;
@@ -62,6 +62,11 @@ button {
     font-weight: 600;
     font-size: 1.4rem;
     cursor: pointer;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: var(--cor_ativa);
 }
 
 .sectionForm {
@@ -90,7 +95,6 @@ button {
     color: #00000083;
 
 }
-
 
 #formName h1 {
     align-self: flex-start;
