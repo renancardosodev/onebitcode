@@ -1,7 +1,8 @@
-function criarLabel(id, text){
+function criarLabel(id, text, className){
     const label = document.createElement('label')
     label.htmlFor = id
     label.innerText = text
+    label.classList.add(className)
 
     return label
 }
@@ -48,24 +49,28 @@ function criarSecao(sectionForm) {
         const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', 'Exp-' + inputIndex)
         const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', 'Exp-' + inputIndex)
         const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', 'Exp-' + inputIndex)
-        const labelExp1 = criarLabel (id + '-1', '0-2 anos')
-        const labelExp2 = criarLabel (id + '-2', '3-4 anos')
-        const labelExp3 = criarLabel (id + '-3', '5+ anos')
+        const labelExp1 = criarLabel (id + '-1', '0-2 anos', 'labelRadio')
+        const labelExp2 = criarLabel (id + '-2', '3-4 anos', 'labelRadio')
+        const labelExp3 = criarLabel (id + '-3', '5+ anos', 'labelRadio')
 
         const labelExp = document.createElement('label')
         labelExp.innerText = 'Experiência'
 
+        const divRadios = document.createElement('div')
+        divRadios.classList.add('divRadios')
+
         const buttonRemove = document.createElement('button')
-        buttonRemove.innerText = 'x'
         buttonRemove.classList.add('buttonRemove')
         buttonRemove.type = 'button'
 
         const liTech = document.createElement('li')
         liTech.id = 'li-' + inputIndex
-        
+        liTech.classList.add('liTech')
+
         inputIndex++
         
-        liTech.append(labelTech, inputTech, labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3, buttonRemove)
+        divRadios.append(inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3, buttonRemove)
+        liTech.append(labelTech, inputTech, labelExp, divRadios)
         form.appendChild(liTech)
 
         buttonRemove.addEventListener('click', ()=>{
