@@ -22,7 +22,7 @@ html {
 body {
     width: 100%;
     height: 100vh;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
 main {
@@ -45,11 +45,11 @@ p {
 
 input {
     width: 100%;
-    height: 5.5rem;
-    border: 2px solid #00000015;
+    height: 4rem;
+    border: 2px solid #00000025;
     border-radius: 0.8rem;
     outline: none;
-    padding: 1.8rem 1.3rem 0.3rem 1.3rem;
+    padding: 0 1.3rem;
     font-weight: 500;
 }
 
@@ -74,6 +74,7 @@ button:hover {
     min-width: 60%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 #formName {
@@ -83,17 +84,32 @@ button:hover {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: relative;
+    /* position: relative; */
     margin: auto;
 }
 
-#formName label {
-    position: absolute;
-    left: 4px;
-    top: 25rem;
-    pointer-events: none;
-    padding: 1rem;
-    color: #00000083;
+
+input::placeholder{
+    color: #00000063;
+}
+
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid var(--cor_padrao);
+    border-radius: 0.5rem;
+    outline: none;
+    padding: 0;
+}
+
+input[type="radio"]:checked {
+
+    background-color: var(--cor_ativa);
+    border: none;
 }
 
 #formName h1 {
@@ -153,29 +169,29 @@ button:hover {
 }
 
 .liTech {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas: 
+    "tech button"
+    "radio button";
     gap: 0.5rem;
     padding: 2rem 0;
     border-bottom: 1px solid #00000015;
 }
 
-.inputTech {
-    /* position: relative; */
-}
-.labelTech {
-    
-    /* background: red; */
+.divTech {
+    grid-area: tech;
 }
 
+.divTech input{
+    margin: 0.5rem 0 1.5rem 0;
+}
 
 .divRadios {
+    grid-area: radio;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
-
 
 .inputRadio {
     width: 1.5rem;
@@ -183,27 +199,24 @@ button:hover {
     background-color: transparent;
 }
 
-
-
-
 .divRadios label {
     margin-right: 2rem;
 }
 
 .buttonRemove {
+    grid-area: button;
     width: 3.5rem;
     height: 3.5rem;
     background: url(icon-bin-black.png) no-repeat center center;
     background-size: 2rem;
-    background-color: var(--cor_padrao);
-    border-radius: 5rem;
     color: #fff;
     font-weight: 800;
-    margin: 0;
+    margin: auto;
 }
 
 .buttonRemove:hover {
     background: url(icon-bin.png) no-repeat center center;
     background-size: 2rem;
-    background-color: rgb(224, 75, 75);
+    background-color: rgb(230, 124, 124);
+    border-radius: 5rem;
 }

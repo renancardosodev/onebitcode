@@ -7,13 +7,14 @@ function criarLabel(id, text, className){
     return label
 }
 
-function criarInput(id, type, classInput, name= ''){
+function criarInput(id, type, classInput, name= '',placeholder=''){
     const input= document.createElement('input')
 
     input.id = id
     input.type = type
     input.required = 'required'
     input.name = name
+    input.placeholder = placeholder
     input.classList.add(classInput)
 
     return input
@@ -42,9 +43,13 @@ function criarSecao(sectionForm) {
 
     buttonAddTech.addEventListener('click', ()=>{
         const id = 'inputTech-' + inputIndex
+        
+        const divTech = document.createElement('div')
+        const divRadios = document.createElement('div')
+        divRadios.classList.add('divRadios')
+        divTech.classList.add('divTech')
 
-        const labelTech = criarLabel(id, '\nTecnologia', 'labelTech')
-        const inputTech = criarInput(id, 'text', 'inputTech')
+        const inputTech = criarInput(id, 'text', 'inputTech', '', 'Tecnologia')
 
         const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', 'Exp-' + inputIndex)
         const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', 'Exp-' + inputIndex)
@@ -56,8 +61,7 @@ function criarSecao(sectionForm) {
         const labelExp = document.createElement('label')
         labelExp.innerText = 'Experiência'
 
-        const divRadios = document.createElement('div')
-        divRadios.classList.add('divRadios')
+
 
         const buttonRemove = document.createElement('button')
         buttonRemove.classList.add('buttonRemove')
@@ -68,9 +72,10 @@ function criarSecao(sectionForm) {
         liTech.classList.add('liTech')
 
         inputIndex++
-        
-        divRadios.append(inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3, buttonRemove)
-        liTech.append(labelTech, inputTech, labelExp, divRadios)
+
+        divTech.append(inputTech)
+        divRadios.append(labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3)
+        liTech.append(divTech, divRadios, buttonRemove)
         form.appendChild(liTech)
 
         buttonRemove.addEventListener('click', ()=>{
@@ -89,5 +94,6 @@ const formName = document.getElementById('formName')
 const buttonEntrar = document.getElementById('entrar')
 
 buttonEntrar.addEventListener('click', ()=>{
+    formName.remove()
     criarSecao(sectionForm)
 })
