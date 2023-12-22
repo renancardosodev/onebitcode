@@ -23,17 +23,14 @@ function criarSecao(sectionForm) {
     const form = document.createElement('form')
     const buttonAddTech = document.createElement('button')
     const buttonCadastrar = document.createElement('button')
-    const buttonRemove = document.createElement('button')
 
     buttonAddTech.id = 'buttonAddTech'
     buttonAddTech.innerText = 'Adicionar Tecnologia'
     buttonCadastrar.id = 'buttonCadastrar'
     buttonCadastrar.type = 'submit'
     buttonCadastrar.innerText = 'Enviar'
-    buttonRemove.innerText = 'x'
-    buttonRemove.classList.add('buttonRemove')
+    
     divForm.id = 'divForm'
-
 
     console.log(sectionForm)
 
@@ -52,25 +49,34 @@ function criarSecao(sectionForm) {
         const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', 'Exp-' + inputIndex)
         const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', 'Exp-' + inputIndex)
         const labelExp1 = criarLabel (id + '-1', '0-2 anos')
-        const labelExp2 = criarLabel (id + '-2', '3-5 anos')
-        const labelExp3 = criarLabel (id + '-3', '+5 anos')
+        const labelExp2 = criarLabel (id + '-2', '3-4 anos')
+        const labelExp3 = criarLabel (id + '-3', '5+ anos')
 
         const labelExp = document.createElement('label')
         labelExp.innerText = 'Experiência'
 
+        const buttonRemove = document.createElement('button')
+        buttonRemove.innerText = 'x'
+        buttonRemove.classList.add('buttonRemove')
+        buttonRemove.type = 'button'
+
+        const liTech = document.createElement('li')
+        liTech.id = 'li-' + inputIndex
+        
         inputIndex++
         
-        form.append(labelTech, inputTech, labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3, buttonRemove)
+        liTech.append(labelTech, inputTech, labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3, buttonRemove)
+        form.appendChild(liTech)
 
-        buttonRemove.addEventListener('click', (evt)=>{
-            evt.defaultPrevented()
-            labelTech.remove()
-            inputTech.remove()
+        buttonRemove.addEventListener('click', ()=>{
+            liTech.remove()
         })
     })
-
-
     
+    // buttonCadastrar.addEventListener('submit', ()=>{
+    //     inputExp1.value
+    // })
+
 }
 
 const sectionForm = document.getElementsByClassName('sectionForm')[0]
