@@ -22,6 +22,7 @@ function criarInput(id, type, classInput, value= '', name, placeholder=''){
 }
 
 function clicarBotaoAdicionarTech(inputIndex, form){
+
     const id = 'inputTech-' + inputIndex
     const divTech = document.createElement('div')
     const divRadios = document.createElement('div')
@@ -31,9 +32,9 @@ function clicarBotaoAdicionarTech(inputIndex, form){
 
     const inputTech = criarInput(id, 'text', 'inputTech', '', 'tech', 'Tecnologia')
 
-    const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '0-2 anos', '', 'radio');
-    const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '3-4 anos', '', 'radio');
-    const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '5+ anos', '', 'radio');
+    const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '0-2 anos', inputIndex + '-radio', '');
+    const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '3-4 anos', inputIndex + '-radio', '');
+    const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '5+ anos', inputIndex + '-radio', '');
     const labelExp1 = criarLabel(id + '-1', '0-2 anos', 'labelRadio');
     const labelExp2 = criarLabel(id + '-2', '3-4 anos', 'labelRadio');
     const labelExp3 = criarLabel(id + '-3', '5+ anos', 'labelRadio');
@@ -59,19 +60,47 @@ function clicarBotaoAdicionarTech(inputIndex, form){
     })
 }
 
-function clicarBotaoEnviar(inputName){
+function clicarBotaoEnviar(inputName, divForm, developers){
+
     const allInputTech = [...document.getElementsByClassName('inputTech')]
     const allInputRadio = [...document.querySelectorAll('.inputRadio:checked')]
-    let developers = []
+    const aviso = document.getElementById('avisoEnviar')
 
-    const tech = allInputTech.map((e,i) => {
-        return {tecnologia: e.value, experiencia: allInputRadio[i].value}
+    if (allInputsPreenchidos(allInputTech, allInputRadio)) {
+        const tech = allInputTech.map((e, i) => {
+            return { tecnologia: e.value, experiencia: allInputRadio[i].value}
+        })
+
+        const newDeveloper = { name: inputName, tech }
+
+        if (aviso) {
+            aviso.remove()
+        }
+        developers.push(newDeveloper)
+        console.log(developers)
+        return true
+
+    } else if (!aviso) {
+        const aviso = document.createElement('p')
+        aviso.innerText = 'Preencha corretamente todos os campos'
+        aviso.id = 'avisoEnviar'
+        divForm.appendChild(aviso)
+        return false
+    }
+}
+
+function allInputsPreenchidos(allInputTech, allInputRadio) {
+    let tech = true
+    allInputTech.forEach((e)=>{
+        if(!e.value){
+            console.log(e.value)
+            tech = false
+        }
     })
-
-    const newDeveloper = { name: inputName,  tech}
-
-    developers.push(newDeveloper)
-    console.log(developers)
+    if (allInputRadio.length !== allInputTech.length){
+        tech = false
+    }
+    return tech
 }
 
 function parabens(divForm){
@@ -93,7 +122,7 @@ function parabens(divForm){
     })
 }
 
-function criarSecao(sectionForm, inputName) {
+function criarSecao(sectionForm, inputName, developers) {
     const divForm = document.createElement('div')
     const form = document.createElement('form')
     const buttonAddTech = document.createElement('button')
@@ -121,24 +150,37 @@ function criarSecao(sectionForm, inputName) {
     
     buttonCadastrar.addEventListener('click', (evt) => {
         evt.preventDefault()
-        clicarBotaoEnviar(inputName)
+        let resposta = clicarBotaoEnviar(inputName, divForm, developers)
 
-        form.reset()
-        form.remove()
-        buttonAddTech.remove()
-        buttonCadastrar.remove()
+        if(resposta){
+            form.reset()
+            form.remove()
+            buttonAddTech.remove()
+            buttonCadastrar.remove()
 
-        parabens(divForm)
+            parabens(divForm)
+        }
     })
 }
 
 const sectionForm = document.getElementsByClassName('sectionForm')[0]
 const formName = document.getElementById('formName')
 const buttonEntrar = document.getElementById('entrar')
+let developers = []
 
 
 buttonEntrar.addEventListener('click', ()=>{
     const inputName = document.getElementById('name').value
-    formName.remove()
-    criarSecao(sectionForm, inputName)
+    if (inputName){
+        formName.remove()
+        criarSecao(sectionForm, inputName, developers)
+    }else{
+        const aviso = document.getElementById('aviso')
+        if(!aviso){
+            const aviso = document.createElement('p')
+            aviso.innerText = 'Preencha com o seu nome completo'
+            aviso.id = 'aviso'
+            formName.appendChild(aviso)
+        }
+    }
 })
