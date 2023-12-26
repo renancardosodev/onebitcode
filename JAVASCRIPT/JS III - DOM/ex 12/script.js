@@ -105,10 +105,24 @@ function criarSecao(sectionForm, inputName) {
         buttonCadastrar.remove()
 
         const divCadastrado = document.createElement('div')
+        const h2Parabens = document.createElement('h2')
+        const pParabens = document.createElement('p')
+        const buttonVoltar = document.createElement('button')
         divCadastrado.id = 'divCadastrado'
-        divCadastrado.innerText = 'Parabéns! Seu cadastro foi enviado.'
+        h2Parabens.innerText = 'Parabéns!'
+        pParabens.innerText = 'Seu cadastro foi enviado.'
+        buttonVoltar.innerText = 'Voltar'
+
+        divCadastrado.append(h2Parabens,pParabens,buttonVoltar)
+        divForm.appendChild(divCadastrado)
+
+        buttonVoltar.addEventListener('click', ()=>{
+            divForm.remove()
+            sectionForm.append(formName)
+        })
     })
 
+    
 
 }
 
