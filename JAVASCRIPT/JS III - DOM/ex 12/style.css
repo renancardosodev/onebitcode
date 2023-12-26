@@ -30,7 +30,6 @@ main {
     height: 100vh;
     display: flex;
     justify-content: center;
-    
 }
 
 header img {
@@ -172,7 +171,9 @@ input[type="radio"]:checked {
     display: grid;
     grid-template-areas: 
     "tech button"
+    "exp button"
     "radio button";
+    grid-template-columns: 85% 15%;
     gap: 0.5rem;
     padding: 2rem 0;
     border-bottom: 1px solid #00000015;
@@ -186,7 +187,11 @@ input[type="radio"]:checked {
     margin: 0.5rem 0 1.5rem 0;
 }
 
-.divRadios {
+.divExp {
+    grid-area: exp;
+}
+
+#divRadios {
     grid-area: radio;
     display: flex;
     align-items: center;
@@ -199,8 +204,15 @@ input[type="radio"]:checked {
     background-color: transparent;
 }
 
-.divRadios label {
-    margin-right: 2rem;
+.spanRadios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.spanRadios label {
+    margin-left: 1rem;
 }
 
 .buttonRemove {
@@ -219,4 +231,41 @@ input[type="radio"]:checked {
     background-size: 2rem;
     background-color: rgb(230, 124, 124);
     border-radius: 5rem;
+}
+
+@media screen and (max-width: 1300px){
+    main {
+        flex-direction: column-reverse;
+    }
+
+    .sectionForm {
+        width: 100%;
+        height: 100%;
+        min-height: 60%;
+    }
+
+    #divForm {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 935px) {
+    .sectionBanner {
+        display: none;
+    }
+
+    #formName {
+        width: auto;
+        padding: 0;
+        margin:  0 4rem;
+    }
+
+    #divForm {
+        width: auto;
+        padding: 0;
+        margin:  0 4rem;
+    }
 }

@@ -25,10 +25,18 @@ function clicarBotaoAdicionarTech(inputIndex, form){
 
     const id = 'inputTech-' + inputIndex
     const divTech = document.createElement('div')
+    const spanRadios1 = document.createElement('span')
+    const spanRadios2 = document.createElement('span')
+    const spanRadios3 = document.createElement('span')
+    const divExp = document.createElement('div')
     const divRadios = document.createElement('div')
 
     divTech.classList.add('divTech')
-    divRadios.classList.add('divRadios')
+    divExp.classList.add('divExp')
+    spanRadios1.classList.add('spanRadios')
+    spanRadios2.classList.add('spanRadios')
+    spanRadios3.classList.add('spanRadios')
+    divRadios.id = 'divRadios'
 
     const inputTech = criarInput(id, 'text', 'inputTech', '', 'tech', 'Tecnologia')
 
@@ -50,9 +58,14 @@ function clicarBotaoAdicionarTech(inputIndex, form){
     liTech.id = 'li-' + inputIndex
     liTech.classList.add('liTech')
 
+    spanRadios1.append(inputExp1, labelExp1)
+    spanRadios2.append(inputExp2, labelExp2)
+    spanRadios3.append(inputExp3, labelExp3)
     divTech.append(inputTech)
-    divRadios.append(labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3)
-    liTech.append(divTech, divRadios, buttonRemove)
+    divRadios.append(spanRadios1, spanRadios2, spanRadios3)
+    divExp.append(labelExp, divRadios)    
+
+    liTech.append(divTech, divExp, buttonRemove)
     form.appendChild(liTech)
 
     buttonRemove.addEventListener('click', ()=>{
