@@ -121,6 +121,7 @@ function parabens(divForm){
     const h2Parabens = document.createElement('h2')
     const pParabens = document.createElement('p')
     const buttonVoltar = document.createElement('button')
+
     divCadastrado.id = 'divCadastrado'
     h2Parabens.innerText = 'Parabéns!'
     pParabens.innerText = 'Seu cadastro foi enviado.'
@@ -179,14 +180,15 @@ function criarSecao(sectionForm, inputName, developers) {
 const sectionForm = document.getElementsByClassName('sectionForm')[0]
 const formName = document.getElementById('formName')
 const buttonEntrar = document.getElementById('entrar')
-let developers = []
+const developers = []
 
 
 buttonEntrar.addEventListener('click', ()=>{
-    const inputName = document.getElementById('name').value
-    if (inputName){
+    const inputName = document.getElementById('name')
+    if (inputName.value){
+        inputName.value = ''
         formName.remove()
-        criarSecao(sectionForm, inputName, developers)
+        criarSecao(sectionForm, inputName.value, developers)
     }else{
         const aviso = document.getElementById('aviso')
         if(!aviso){
