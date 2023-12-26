@@ -21,19 +21,89 @@ function criarInput(id, type, classInput, value= '', name, placeholder=''){
     return input
 }
 
+function clicarBotaoAdicionarTech(inputIndex, form){
+    const id = 'inputTech-' + inputIndex
+    const divTech = document.createElement('div')
+    const divRadios = document.createElement('div')
+
+    divTech.classList.add('divTech')
+    divRadios.classList.add('divRadios')
+
+    const inputTech = criarInput(id, 'text', 'inputTech', '', 'tech', 'Tecnologia')
+
+    const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '0-2 anos', '', 'radio');
+    const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '3-4 anos', '', 'radio');
+    const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '5+ anos', '', 'radio');
+    const labelExp1 = criarLabel(id + '-1', '0-2 anos', 'labelRadio');
+    const labelExp2 = criarLabel(id + '-2', '3-4 anos', 'labelRadio');
+    const labelExp3 = criarLabel(id + '-3', '5+ anos', 'labelRadio');
+
+    const labelExp = document.createElement('label')
+    labelExp.innerText = 'Experiência'
+
+    const buttonRemove = document.createElement('button')
+    buttonRemove.classList.add('buttonRemove')
+    buttonRemove.type = 'button'
+
+    const liTech = document.createElement('li')
+    liTech.id = 'li-' + inputIndex
+    liTech.classList.add('liTech')
+
+    divTech.append(inputTech)
+    divRadios.append(labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3)
+    liTech.append(divTech, divRadios, buttonRemove)
+    form.appendChild(liTech)
+
+    buttonRemove.addEventListener('click', ()=>{
+        liTech.remove()
+    })
+}
+
+function clicarBotaoEnviar(inputName){
+    const allInputTech = [...document.getElementsByClassName('inputTech')]
+    const allInputRadio = [...document.querySelectorAll('.inputRadio:checked')]
+    let developers = []
+
+    const tech = allInputTech.map((e,i) => {
+        return {tecnologia: e.value, experiencia: allInputRadio[i].value}
+    })
+
+    const newDeveloper = { name: inputName,  tech}
+
+    developers.push(newDeveloper)
+    console.log(developers)
+}
+
+function parabens(divForm){
+    const divCadastrado = document.createElement('div')
+    const h2Parabens = document.createElement('h2')
+    const pParabens = document.createElement('p')
+    const buttonVoltar = document.createElement('button')
+    divCadastrado.id = 'divCadastrado'
+    h2Parabens.innerText = 'Parabéns!'
+    pParabens.innerText = 'Seu cadastro foi enviado.'
+    buttonVoltar.innerText = 'Voltar'
+
+    divCadastrado.append(h2Parabens,pParabens,buttonVoltar)
+    divForm.appendChild(divCadastrado)
+
+    buttonVoltar.addEventListener('click', ()=>{
+        divForm.remove()
+        sectionForm.append(formName)
+    })
+}
+
 function criarSecao(sectionForm, inputName) {
     const divForm = document.createElement('div')
     const form = document.createElement('form')
     const buttonAddTech = document.createElement('button')
     const buttonCadastrar = document.createElement('button')
-    let developers = []
 
     buttonAddTech.id = 'buttonAddTech'
     buttonAddTech.innerText = 'Adicionar Tecnologia'
     buttonCadastrar.id = 'buttonCadastrar'
     buttonCadastrar.type = 'submit'
     buttonCadastrar.innerText = 'Enviar'
-    
     divForm.id = 'divForm'
 
     divForm.append(form, buttonAddTech)
@@ -42,88 +112,24 @@ function criarSecao(sectionForm, inputName) {
     let inputIndex = 0
 
     buttonAddTech.addEventListener('click', ()=>{
-        const id = 'inputTech-' + inputIndex
-        
-        const divTech = document.createElement('div')
-        const divRadios = document.createElement('div')
-        divRadios.classList.add('divRadios')
-        divTech.classList.add('divTech')
-
-        const inputTech = criarInput(id, 'text', 'inputTech', '', 'tech', 'Tecnologia')
-
-        const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '0-2 anos', '', 'radio');
-        const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '3-4 anos', '', 'radio');
-        const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '5+ anos', '', 'radio');
-        const labelExp1 = criarLabel(id + '-1', '0-2 anos', 'labelRadio');
-        const labelExp2 = criarLabel(id + '-2', '3-4 anos', 'labelRadio');
-        const labelExp3 = criarLabel(id + '-3', '5+ anos', 'labelRadio');
-        
-
-        const labelExp = document.createElement('label')
-        labelExp.innerText = 'Experiência'
-
-        const buttonRemove = document.createElement('button')
-        buttonRemove.classList.add('buttonRemove')
-        buttonRemove.type = 'button'
-
-        const liTech = document.createElement('li')
-        liTech.id = 'li-' + inputIndex
-        liTech.classList.add('liTech')
-
+        clicarBotaoAdicionarTech(inputIndex, form)
         inputIndex++
-
-        divTech.append(inputTech)
-        divRadios.append(labelExp, inputExp1, labelExp1, inputExp2, labelExp2, inputExp3, labelExp3)
-        liTech.append(divTech, divRadios, buttonRemove)
-        form.appendChild(liTech)
-
-        buttonRemove.addEventListener('click', ()=>{
-            liTech.remove()
-        })
 
         buttonAddTech.innerText = 'Adicionar mais'
         divForm.append(buttonCadastrar)
     })
     
     buttonCadastrar.addEventListener('click', (evt) => {
-        evt.preventDefault();
-        const allInputTech = [...document.getElementsByClassName('inputTech')]
-        const allInputRadio = [...document.querySelectorAll('.inputRadio:checked')]
-    
-        const tech = allInputTech.map((e,i) => {
-            return {tecnologia: e.value, experiencia: allInputRadio[i].value}
-        })
-    
-        const newDeveloper = { name: inputName,  tech}
-    
-        developers.push(newDeveloper)
-        console.log(developers)
+        evt.preventDefault()
+        clicarBotaoEnviar(inputName)
 
         form.reset()
         form.remove()
         buttonAddTech.remove()
         buttonCadastrar.remove()
 
-        const divCadastrado = document.createElement('div')
-        const h2Parabens = document.createElement('h2')
-        const pParabens = document.createElement('p')
-        const buttonVoltar = document.createElement('button')
-        divCadastrado.id = 'divCadastrado'
-        h2Parabens.innerText = 'Parabéns!'
-        pParabens.innerText = 'Seu cadastro foi enviado.'
-        buttonVoltar.innerText = 'Voltar'
-
-        divCadastrado.append(h2Parabens,pParabens,buttonVoltar)
-        divForm.appendChild(divCadastrado)
-
-        buttonVoltar.addEventListener('click', ()=>{
-            divForm.remove()
-            sectionForm.append(formName)
-        })
+        parabens(divForm)
     })
-
-    
-
 }
 
 const sectionForm = document.getElementsByClassName('sectionForm')[0]
