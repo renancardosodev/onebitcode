@@ -36,8 +36,6 @@ function criarSecao(sectionForm, inputName) {
     
     divForm.id = 'divForm'
 
-    console.log(sectionForm)
-
     divForm.append(form, buttonAddTech)
     sectionForm.append(divForm)
 
@@ -53,9 +51,9 @@ function criarSecao(sectionForm, inputName) {
 
         const inputTech = criarInput(id, 'text', 'inputTech', '', 'tech', 'Tecnologia')
 
-        const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '', '0-2 anos', 'radio');
-        const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '', '3-4 anos', 'radio');
-        const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '', '5+ anos', 'radio');
+        const inputExp1 = criarInput(id + '-1', 'radio', 'inputRadio', '0-2 anos', '', 'radio');
+        const inputExp2 = criarInput(id + '-2', 'radio', 'inputRadio', '3-4 anos', '', 'radio');
+        const inputExp3 = criarInput(id + '-3', 'radio', 'inputRadio', '5+ anos', '', 'radio');
         const labelExp1 = criarLabel(id + '-1', '0-2 anos', 'labelRadio');
         const labelExp2 = criarLabel(id + '-2', '3-4 anos', 'labelRadio');
         const labelExp3 = criarLabel(id + '-3', '5+ anos', 'labelRadio');
@@ -87,50 +85,29 @@ function criarSecao(sectionForm, inputName) {
         divForm.append(buttonCadastrar)
     })
     
-    // buttonCadastrar.addEventListener('click', (evt)=>{
-    //     evt.preventDefault()
-    //     const name = document.getElementById('name')
-    //     const allInputTech = [...document.getElementsByClassName('inputTech')]
-    //     const allInputRadio =[...document.getElementsByClassName('inputRadio')]
-    //     let tech = []
-
-    //     allInputTech.forEach((e)=>{
-    //         const techInput = document.querySelector('#' + e.id).value
-    //         tech.push({name: techInput})
-    //     })
-    //     allInputRadio.forEach((e)=>{
-    //         console.log(e)
-    //         const techRadio = document.querySelector('#' + e.id + ':checked').value
-    //         tech.push({exp: techRadio})
-    //     })
     buttonCadastrar.addEventListener('click', (evt) => {
         evt.preventDefault();
-        const allInputTech = [...document.getElementsByClassName('inputTech')];
-        const allInputRadio = [...document.querySelectorAll('.inputRadio:checked')];
-        let tech = [];
+        const allInputTech = [...document.getElementsByClassName('inputTech')]
+        const allInputRadio = [...document.querySelectorAll('.inputRadio:checked')]
     
-        allInputTech.forEach((e) => {
-            const techInput = e.value;
-            tech.push({ tecnologia: techInput });
-        });
+        const tech = allInputTech.map((e,i) => {
+            return {tecnologia: e.value, experiencia: allInputRadio[i].value}
+        })
     
-        allInputRadio.forEach((e) => {
-            const techRadio = e.value;
-            tech.push({ exp: techRadio });
-        });
+        const newDeveloper = { name: inputName,  tech}
     
-        const newDeveloper = [{ name: inputName, tech }];
-    
-        developers.push(newDeveloper);
-        console.log(developers);
-    });
-    
-        // const newDeveloper = [{name:name.value, tech}]
+        developers.push(newDeveloper)
+        console.log(developers)
 
-        
-        // developers.push(newDeveloper)
-        // console.log(developers)
-    // })
+        form.reset()
+        form.remove()
+        buttonAddTech.remove()
+        buttonCadastrar.remove()
+
+        const divCadastrado = document.createElement('div')
+        divCadastrado.id = 'divCadastrado'
+        divCadastrado.innerText = 'Parabéns! Seu cadastro foi enviado.'
+    })
 
 
 }
