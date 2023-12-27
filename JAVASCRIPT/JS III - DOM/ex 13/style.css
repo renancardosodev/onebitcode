@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@300;400;500;700&display=swap');
+
+:root {
+    --font-geral: 'Quicksand', sans-serif;
+    --font-xo: 'Comfortaa', sans-serif;
+    --cor-fundo-corpo: #feac5f;
+    --cor-fundo-principal: #b41f1f;
+    --cor-fundo-jogo: #d8aa89;
+    --cor-jogadores: #ec6408;
+    --cor-xo: #9e3900;
+    --cor-letras-escuro: #680000;
+    --cor-letras-claro: #fff;
+}
+
+* {
+    font-family: var(--font-geral);
+}
+
