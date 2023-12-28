@@ -11,18 +11,30 @@ function criarPlayers(){
             escolhaPlayer1 = e.dataset.value
         }
     })
-
     typeGamePlayer2.forEach((e)=>{
         if (e.disabled != true){
             escolhaPlayer2 = e.dataset.value
         }
     })
+    console.log(escolhaPlayer1, escolhaPlayer2)
 
+
+    if(namePlayer1 != "" && namePlayer2 != "" && escolhaPlayer1 != '' && escolhaPlayer2 != '') {
+        document.getElementById('escolherPlayers').remove()
+    }else{
+        if(document.getElementById('spanError')){
+            document.getElementById('spanError').remove()
+        }
+        const spanError = document.createElement('span')
+        spanError.id = 'spanError'
+        spanError.innerText = '*Preencha todos os campos para começar o jogo!'
+        document.getElementById('escolherPlayers').append(spanError)
+        
+    }
 
 }
 
 function desabilitarBotao(btn, btn2, btn3, btn4){
-    
     btn.addEventListener('click', ()=>{
         btn.classList.remove('btnDisable')
         btn2.classList.add('btnDisable')
@@ -41,7 +53,4 @@ desabilitarBotao(btnO1, btnX1,btnO2, btnX2)
 
 
 
-document.getElementById('btnStart').addEventListener('click', () =>{
-    criarPlayers()
-    document.getElementById('escolherPlayers').remove()
-})
+document.getElementById('btnStart').addEventListener('click', criarPlayers)

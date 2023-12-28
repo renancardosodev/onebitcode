@@ -78,10 +78,11 @@ button:disabled, .btnDisable{
     box-shadow: 5px 5px 10px #680000;
     padding: 4rem;
     display: grid;
+    gap: 2rem;
     grid-template-areas: 
     "player1 player2"
-    "start start";
-    gap: 50px;
+    "start start"
+    "spanerror spanerror";
 }
 
 #divPlayer1 {
@@ -115,7 +116,7 @@ h1 {
     background-color: var(--cor-xo);
     width: 4rem;
     height: 4rem;
-    padding-bottom: 0.2rem;
+    padding-bottom: 0.3rem;
     font-size: 2rem;
     transition: 0.5s;
 }
@@ -131,5 +132,12 @@ h1 {
     font-size: 1.8rem;
     font-weight: 600;
     padding: 1rem 2rem;
+    margin-top: 2rem;
     transition: 0.5s;
+}
+
+#spanError {
+    grid-area: spanerror;
+    color: var(--cor-fundo-principal);
+    font-size: 1.4rem;
 }
