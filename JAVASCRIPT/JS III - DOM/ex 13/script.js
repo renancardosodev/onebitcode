@@ -1,3 +1,16 @@
+function iniciarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
+    const divQuemEstaJogando = document.createElement('div')
+    const divGame = document.createElement('div')
+    const spanScoreJogador1 = document.createElement('span')
+    const spanScoreJogador2 = document.createElement('span')
+    const tabuleiro = document.createElement('span')
+    const newGame = document.createElement('div')
+    const divIdGame = document.querySelector('#game')
+
+    divGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
+    divIdGame.append(divQuemEstaJogando, divGame, newGame)
+}
+
 function criarPlayers(){
     const namePlayer1 = document.getElementById('player1').value
     const namePlayer2 = document.getElementById('player2').value
@@ -16,11 +29,10 @@ function criarPlayers(){
             escolhaPlayer2 = e.dataset.value
         }
     })
-    console.log(escolhaPlayer1, escolhaPlayer2)
 
-
-    if(namePlayer1 != "" && namePlayer2 != "" && escolhaPlayer1 != '' && escolhaPlayer2 != '') {
+    if(namePlayer1 != "" && namePlayer2 != "" && btnEscolhaApertado == true) {
         document.getElementById('escolherPlayers').remove()
+        iniciarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
     }else{
         if(document.getElementById('spanError')){
             document.getElementById('spanError').remove()
@@ -29,7 +41,6 @@ function criarPlayers(){
         spanError.id = 'spanError'
         spanError.innerText = '*Preencha todos os campos para começar o jogo!'
         document.getElementById('escolherPlayers').append(spanError)
-        
     }
 
 }
@@ -47,10 +58,12 @@ const btnX1 = document.getElementById('primeiroX')
 const btnO1 = document.getElementById('primeiroO')
 const btnX2 = document.getElementById('segundoX')
 const btnO2 = document.getElementById('segundoO')
+let btnEscolhaApertado = false
 
 desabilitarBotao(btnX1, btnO1, btnX2, btnO2)
 desabilitarBotao(btnO1, btnX1,btnO2, btnX2)
 
-
+document.querySelectorAll('#divBtn1 .btnEscolha')[0].addEventListener('click',() => btnEscolhaApertado = true)
+document.querySelectorAll('#divBtn1 .btnEscolha')[1].addEventListener('click', () => btnEscolhaApertado = true)
 
 document.getElementById('btnStart').addEventListener('click', criarPlayers)
