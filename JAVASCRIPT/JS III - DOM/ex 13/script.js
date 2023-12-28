@@ -1,14 +1,46 @@
 function iniciarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
-    const divQuemEstaJogando = document.createElement('div')
-    const divGame = document.createElement('div')
-    const spanScoreJogador1 = document.createElement('span')
-    const spanScoreJogador2 = document.createElement('span')
-    const tabuleiro = document.createElement('span')
-    const newGame = document.createElement('div')
-    const divIdGame = document.querySelector('#game')
+    const currentPlayer = document.createElement('section')
+    const sectionGame = document.createElement('section')
+    const newGame = document.createElement('section')
 
-    divGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
-    divIdGame.append(divQuemEstaJogando, divGame, newGame)
+    const tabuleiro = document.createElement('span')
+
+    const spanScoreJogador2 = document.createElement('span')
+    const pScoreJogador2 = document.createElement('p')
+    const score2 = document.createElement('p')  
+
+    const spanScoreJogador1 = document.createElement('span')
+    const pScoreJogador1 = document.createElement('p')
+    const score1 = document.createElement('p')    
+      
+    sectionGame.id = 'sectionGame'
+    spanScoreJogador1.id = 'spanScoreJogador1'
+    spanScoreJogador2.id = 'spanScoreJogador2'
+    tabuleiro.id = 'tabuleiro'
+    pScoreJogador1.innerText = namePlayer1
+    pScoreJogador2.innerText = namePlayer2
+    pScoreJogador1.classList.add('pScoreJogadores')
+    pScoreJogador2.classList.add('pScoreJogadores')
+    score1.classList.add('score')
+    score1.id = 'score1'
+    score2.classList.add('score')
+    score2.id = 'score2'
+    currentPlayer.id = 'currentPlayer'
+    currentPlayer.innerText = namePlayer1
+    newGame.id = 'newGame'
+    newGame.innerText = 'Novo Jogo'
+
+    for(let i=0; i<=8 ; i++){
+        const spanCasa = document.createElement('span')
+        spanCasa.id = 'spanCasa-'+(i+1)
+        spanCasa.classList.add('spanCasa')
+        tabuleiro.append(spanCasa)
+    }
+
+    spanScoreJogador1.append(pScoreJogador1, score1)
+    spanScoreJogador2.append(pScoreJogador2,score2)
+    sectionGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
+    document.querySelector('main').append(currentPlayer, sectionGame, newGame)
 }
 
 function criarPlayers(){
