@@ -143,6 +143,8 @@ h1 {
 }
 
 #tabuleiro {
+    min-width: 27rem;
+    min-height: 27rem;
     background-color: var(--cor-fundo-jogo);
     border-radius: 2rem;
     padding: 1.3rem;
@@ -163,7 +165,10 @@ h1 {
     color: var(--cor-letras-claro);
     font-size: 5rem;
     font-family: var(--font-xo);
-    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #spanScoreJogador1, #spanScoreJogador2 {
@@ -191,7 +196,7 @@ h1 {
     text-align: center;
 }
 
-#currentPlayer, #newGame {
+#currentPlayer, .newGame {
     background-color: var(--cor-jogadores);
     border-radius: 2rem;
     color: var(--cor-letras-claro);
@@ -209,7 +214,24 @@ h1 {
     height: 5.5rem;
 }
 
-#newGame {
+.newGame {
     width: auto;
+    cursor: pointer;
 }
 
+#popUpGanhador {
+    min-width: 27rem;
+    min-height: 27rem;
+    background-color: var(--cor-fundo-jogo);
+    position: absolute;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#popUpGanhador p {
+    padding: 1rem 0 3rem 0;
+    border-top: 1px solid #1a00002f;
+}

@@ -1,5 +1,33 @@
 function mostrarGanhador(ganhador){
     console.log(ganhador)
+    const popUpGanhador = document.createElement('section')
+    const h2Ganhador = document.createElement('h2')
+    const pGanhador = document.createElement('p')
+    const btnNewGame = document.createElement('button')
+    
+    popUpGanhador.id = 'popUpGanhador'
+    btnNewGame.classList.add('newGame')
+    btnNewGame.innerText = 'Jogar de novo'
+
+    if(ganhador != 'velha'){
+        h2Ganhador.innerText = 'Parabéns'
+        pGanhador.innerText = 'Voce ganhou ' + ganhador
+    }else {
+        h2Ganhador.innerText = 'Deu VELHA'
+        pGanhador.innerText = 'Que pena! Não teve ganhador. Vamos tentar outra vez?'
+    }
+
+    popUpGanhador.append(h2Ganhador, pGanhador, btnNewGame)
+    document.querySelector('main').append(popUpGanhador)
+
+    btnNewGame.addEventListener('click', ()=>{
+        if(popUpGanhador){
+            popUpGanhador.remove()
+        }
+        document.querySelectorAll('.spanCasa').forEach((e)=>{
+            e.innerText = ''
+        })
+    })
 }
 
 function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2){
@@ -14,7 +42,7 @@ function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlay
 
 function iniciarJogo(currentPlayer, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2){
     const spanCasa = [...document.querySelectorAll('.spanCasa')]
-    let validacao = false
+    let ganhador = false
     let velha = 0
     let clicks = 1
 
@@ -23,28 +51,28 @@ function iniciarJogo(currentPlayer, escolhaPlayer1, escolhaPlayer2, namePlayer1,
                 if(e.innerText == ''){
                     if(clicks%2) {
                         e.innerText = escolhaPlayer1
-                        currentPlayer.innerText = namePlayer2
+                        currentPlayer.innerText = 'Sua vez ' + namePlayer2
                     }else {
                         e.innerText = escolhaPlayer2
-                        currentPlayer.innerText = namePlayer1
+                        currentPlayer.innerText = 'Sua vez ' + namePlayer1
                     }
 
-                    validacao = verficarSeGanhou(arr, 0, 1, 2, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 3, 4, 5, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 6, 7, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 0, 4, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 2, 4, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 0, 3, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 1, 4,7, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
-                    validacao = verficarSeGanhou(arr, 2, 5, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(validacao) return validacao
+                    ganhador = verficarSeGanhou(arr, 0, 1, 2, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 3, 4, 5, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 6, 7, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 0, 4, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 2, 4, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 0, 3, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 1, 4,7, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
+                    ganhador = verficarSeGanhou(arr, 2, 5, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                    if(ganhador) mostrarGanhador(ganhador)
 
                     if(e.innerText != '') velha++
                     if(velha === 9) return 'velha'
@@ -83,8 +111,8 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     score2.classList.add('score')
     score2.id = 'score2'
     currentPlayer.id = 'currentPlayer'
-    currentPlayer.innerText = namePlayer1
-    newGame.id = 'newGame'
+    currentPlayer.innerText = 'Sua vez ' + namePlayer1
+    newGame.classList.add('newGame')
     newGame.innerText = 'Novo Jogo'
 
     for(let i=0; i<=8 ; i++){
@@ -99,10 +127,16 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     sectionGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
     document.querySelector('main').append(currentPlayer, sectionGame, newGame)
 
-
-
-    const ganhador = iniciarJogo(currentPlayer,escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-    mostrarGanhador(ganhador)
+    iniciarJogo(currentPlayer,escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+    
+    newGame.addEventListener('click', ()=>{
+        if(document.getElementById('popUpGanhador')){
+            document.getElementById('popUpGanhador').remove()
+        }
+        document.querySelectorAll('.spanCasa').forEach((e)=>{
+            e.innerText = ''
+        })
+    })
 }
 
 function criarPlayers(){
