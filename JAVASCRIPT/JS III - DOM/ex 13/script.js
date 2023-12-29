@@ -40,7 +40,7 @@ function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlay
         const score1 = document.getElementById('score1')
         score1.innerText = Number(score1.innerText) + 1
         mostrarGanhador(namePlayer1)
-        
+
     } else if(arr[a].innerText === escolhaPlayer2 && arr[b].innerText === escolhaPlayer2 && arr[c].innerText === escolhaPlayer2) {
         arr[a].classList.add('spanGanhador')
         arr[b].classList.add('spanGanhador')
@@ -132,18 +132,9 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     sectionGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
     document.querySelector('main').append(currentPlayer, sectionGame, newGame)
 
-    
     iniciarJogo(currentPlayer,escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
     
-    newGame.addEventListener('click', ()=>{
-        if(document.getElementById('popUpGanhador')){
-            document.getElementById('popUpGanhador').remove()
-        }
-        document.querySelectorAll('.spanCasa').forEach((e)=>{
-            e.innerText = ''
-            e.classList.remove('spanGanhador')
-        })
-    })
+    newGame.addEventListener('click', ()=>location.reload())
 }
 
 function criarPlayers(){
