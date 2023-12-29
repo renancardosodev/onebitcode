@@ -270,3 +270,9 @@ h1 {
     background-color: var(--cor-jogadores);
     
 }
+
+@media screen and (max-width: 935px) {
+    body {
+        flex-direction: column;
+    }
+}
