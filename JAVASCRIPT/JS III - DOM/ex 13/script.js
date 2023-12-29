@@ -17,8 +17,12 @@ function mostrarGanhador(ganhador){
         pGanhador.innerText = 'Que pena! Não teve ganhador. Vamos tentar outra vez?'
     }
 
-    popUpGanhador.append(h2Ganhador, pGanhador, btnNewGame)
-    document.querySelector('main').append(popUpGanhador)
+    
+
+    setTimeout(() => {
+        popUpGanhador.append(h2Ganhador, pGanhador, btnNewGame)
+        document.querySelector('main').append(popUpGanhador)
+    }, 2000);
 
     btnNewGame.addEventListener('click', ()=>{
         if(popUpGanhador){
@@ -26,14 +30,21 @@ function mostrarGanhador(ganhador){
         }
         document.querySelectorAll('.spanCasa').forEach((e)=>{
             e.innerText = ''
+            e.classList.remove('spanGanhador')  
         })
     })
 }
 
 function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2){
     if(arr[a].innerText === escolhaPlayer1 && arr[b].innerText === escolhaPlayer1 && arr[c].innerText === escolhaPlayer1) {
+        arr[a].classList.add('spanGanhador')
+        arr[b].classList.add('spanGanhador')
+        arr[c].classList.add('spanGanhador')
         return namePlayer1
     } else if(arr[a].innerText === escolhaPlayer2 && arr[b].innerText === escolhaPlayer2 && arr[c].innerText === escolhaPlayer2) {
+        arr[a].classList.add('spanGanhador')
+        arr[b].classList.add('spanGanhador')
+        arr[c].classList.add('spanGanhador')
         return namePlayer2
     } else {
         return false
@@ -42,11 +53,11 @@ function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlay
 
 function iniciarJogo(currentPlayer, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2){
     const spanCasa = [...document.querySelectorAll('.spanCasa')]
-    let ganhador = false
     let velha = 0
     let clicks = 1
 
-    spanCasa.forEach((e,i,arr)=>{        
+    spanCasa.forEach((e,i,arr)=>{ 
+        let ganhador = false       
             e.addEventListener('click', ()=>{
                 if(e.innerText == ''){
                     if(clicks%2) {
@@ -74,8 +85,14 @@ function iniciarJogo(currentPlayer, escolhaPlayer1, escolhaPlayer2, namePlayer1,
                     ganhador = verficarSeGanhou(arr, 2, 5, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
                     if(ganhador) mostrarGanhador(ganhador)
 
-                    if(e.innerText != '') velha++
-                    if(velha === 9) return 'velha'
+                    if(e.innerText != '') {velha++}
+                    if(velha === 9) {
+                        velha = 0
+                        spanCasa.forEach((j)=>{
+                            j.classList.add('spanGanhador')
+                        })
+                        mostrarGanhador('velha')
+                    }
 
                     clicks++
                 }
@@ -127,6 +144,7 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     sectionGame.append(spanScoreJogador1, tabuleiro, spanScoreJogador2)
     document.querySelector('main').append(currentPlayer, sectionGame, newGame)
 
+    
     iniciarJogo(currentPlayer,escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
     
     newGame.addEventListener('click', ()=>{
@@ -135,6 +153,7 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
         }
         document.querySelectorAll('.spanCasa').forEach((e)=>{
             e.innerText = ''
+            e.classList.remove('spanGanhador')
         })
     })
 }
