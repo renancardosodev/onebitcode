@@ -1,5 +1,4 @@
 function mostrarGanhador(ganhador){
-    console.log(ganhador)
     const popUpGanhador = document.createElement('section')
     const h2Ganhador = document.createElement('h2')
     const pGanhador = document.createElement('p')
@@ -17,12 +16,10 @@ function mostrarGanhador(ganhador){
         pGanhador.innerText = 'Que pena! Não teve ganhador. Vamos tentar outra vez?'
     }
 
-    
-
     setTimeout(() => {
         popUpGanhador.append(h2Ganhador, pGanhador, btnNewGame)
         document.querySelector('main').append(popUpGanhador)
-    }, 2000);
+    }, 1500);
 
     btnNewGame.addEventListener('click', ()=>{
         if(popUpGanhador){
@@ -40,65 +37,51 @@ function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlay
         arr[a].classList.add('spanGanhador')
         arr[b].classList.add('spanGanhador')
         arr[c].classList.add('spanGanhador')
-        return namePlayer1
+        document.getElementById('score1').innerText = ++score1
+        mostrarGanhador(namePlayer1)
     } else if(arr[a].innerText === escolhaPlayer2 && arr[b].innerText === escolhaPlayer2 && arr[c].innerText === escolhaPlayer2) {
         arr[a].classList.add('spanGanhador')
         arr[b].classList.add('spanGanhador')
         arr[c].classList.add('spanGanhador')
-        return namePlayer2
-    } else {
-        return false
+        mostrarGanhador(namePlayer2)
+        document.getElementById('score2').innerText = ++score2
     }
 }
 
 function iniciarJogo(currentPlayer, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2){
     const spanCasa = [...document.querySelectorAll('.spanCasa')]
-    let velha = 0
     let clicks = 1
 
     spanCasa.forEach((e,i,arr)=>{ 
-        let ganhador = false       
-            e.addEventListener('click', ()=>{
-                if(e.innerText == ''){
-                    if(clicks%2) {
-                        e.innerText = escolhaPlayer1
-                        currentPlayer.innerText = 'Sua vez ' + namePlayer2
-                    }else {
-                        e.innerText = escolhaPlayer2
-                        currentPlayer.innerText = 'Sua vez ' + namePlayer1
-                    }
-
-                    ganhador = verficarSeGanhou(arr, 0, 1, 2, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 3, 4, 5, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 6, 7, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 0, 4, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 2, 4, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 0, 3, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 1, 4,7, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-                    ganhador = verficarSeGanhou(arr, 2, 5, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
-                    if(ganhador) mostrarGanhador(ganhador)
-
-                    if(e.innerText != '') {velha++}
-                    if(velha === 9) {
-                        velha = 0
-                        spanCasa.forEach((j)=>{
-                            j.classList.add('spanGanhador')
-                        })
-                        mostrarGanhador('velha')
-                    }
-
-                    clicks++
+        e.addEventListener('click', ()=>{
+            if(e.innerText == ''){
+                if(clicks%2) {
+                    e.innerText = escolhaPlayer1
+                    currentPlayer.innerText = 'Sua vez ' + namePlayer2
+                }else {
+                    e.innerText = escolhaPlayer2
+                    currentPlayer.innerText = 'Sua vez ' + namePlayer1
                 }
-            })
-        
+
+                verficarSeGanhou(arr, 0, 1, 2, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 3, 4, 5, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 6, 7, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 0, 4, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 2, 4, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 0, 3, 6, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 1, 4, 7, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                verficarSeGanhou(arr, 2, 5, 8, escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2)
+                clicks++
+            }
+            if(spanCasa.every(el => el.innerText !== '') && spanCasa.every(cl => !cl.classList.contains('spanGanhador'))) {
+                spanCasa.forEach((j)=>{
+                    j.classList.add('spanGanhador')
+                })
+                mostrarGanhador('velha')  
+            }
+        })        
     })
+
 }
 
 function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
@@ -113,7 +96,7 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     const score2 = document.createElement('p')  
     const spanScoreJogador1 = document.createElement('span')
     const pScoreJogador1 = document.createElement('p')
-    const score1 = document.createElement('p')    
+    const score1 = document.createElement('p')
       
     sectionGame.id = 'sectionGame'
     spanScoreJogador1.id = 'spanScoreJogador1'
@@ -125,8 +108,10 @@ function criarJogo(escolhaPlayer1, escolhaPlayer2, namePlayer1, namePlayer2) {
     pScoreJogador2.classList.add('pScoreJogadores')
     score1.classList.add('score')
     score1.id = 'score1'
+    score1.innerText = 0
     score2.classList.add('score')
     score2.id = 'score2'
+    score2.innerText = 0
     currentPlayer.id = 'currentPlayer'
     currentPlayer.innerText = 'Sua vez ' + namePlayer1
     newGame.classList.add('newGame')
