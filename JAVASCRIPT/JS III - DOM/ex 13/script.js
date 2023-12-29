@@ -37,14 +37,17 @@ function verficarSeGanhou(arr, a, b, c, escolhaPlayer1, escolhaPlayer2, namePlay
         arr[a].classList.add('spanGanhador')
         arr[b].classList.add('spanGanhador')
         arr[c].classList.add('spanGanhador')
-        document.getElementById('score1').innerText = ++score1
+        const score1 = document.getElementById('score1')
+        score1.innerText = Number(score1.innerText) + 1
         mostrarGanhador(namePlayer1)
+        
     } else if(arr[a].innerText === escolhaPlayer2 && arr[b].innerText === escolhaPlayer2 && arr[c].innerText === escolhaPlayer2) {
         arr[a].classList.add('spanGanhador')
         arr[b].classList.add('spanGanhador')
         arr[c].classList.add('spanGanhador')
         mostrarGanhador(namePlayer2)
-        document.getElementById('score2').innerText = ++score2
+        const score2 = document.getElementById('score2')
+        score2.innerText = Number(score2.innerText) + 1
     }
 }
 
