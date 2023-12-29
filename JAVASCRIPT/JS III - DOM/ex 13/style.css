@@ -173,6 +173,7 @@ h1 {
     background-color: var(--cor-fundo-jogo);
     border-radius: 2rem;
     padding: 1.3rem;
+    margin: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
@@ -188,8 +189,9 @@ h1 {
     background-color: var(--cor-xo);
     justify-self: center;
     color: var(--cor-letras-claro);
-    font-size: 5rem;
+    font-size: 6rem;
     font-family: var(--font-xo);
+    padding-bottom: 1.1rem;
 
     display: flex;
     justify-content: center;
