@@ -17,5 +17,15 @@ function mediaPonderada(...obj){
     console.log((totalnumeros/totalpesos).toFixed(2))
 }
 
+function mediana(...numeros){
+    const meio = numeros.length/2
+    if(numeros.length % 2 === 0){
+        console.log((numeros[(Math.floor(meio)-1)] + numeros[(Math.ceil(meio))])/2)
+    }else {
+        console.log(numeros[Math.floor(meio)])
+    }
+}
+
 mediaAritmeticaSimples(5,5,5,5,5,5)
 mediaPonderada({n:2,p:7}, {n:5,p:5} ,{n:10,p:2})
+mediana(2,3,8,8,10,5)
