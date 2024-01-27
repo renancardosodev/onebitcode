@@ -1,12 +1,13 @@
-import { Character } from "./character.js";
+const Character = require("./character.js")
 
-export class Mage extends Character {
-    constructor(magic) {
+class Mage extends Character {
+    constructor(magic, name, hp, atk, def) {
+        super(name, hp, atk, def)
         this.magic = magic
     }
 
     attack(alvo) {
-        alvo.hp = alvo.def - 2*(super.atk + this.magic)
+        alvo.hp -= (this.atk + this.magic) - alvo.def
         alvo.hp <= 0 ? console.log(`${alvo.name} está morto!`): console.log(`${alvo.name} tem ${alvo.hp} de vida.`)
     }
 
@@ -14,3 +15,5 @@ export class Mage extends Character {
         alvo.hp += 2*(this.magic)
     }
 }
+
+module.exports = Mage

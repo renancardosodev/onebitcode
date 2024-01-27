@@ -1,4 +1,4 @@
-export class Character {
+class Character {
     constructor(name, hp, atk, def){
         this.name = name
         this.hp = hp
@@ -6,7 +6,9 @@ export class Character {
         this.def = def
     }
     attack(alvo){
-        alvo.hp = alvo.def - this.atk
+        alvo.hp -= this.atk - alvo.def
         alvo.hp <= 0 ? console.log(`${alvo.name} está morto!`): console.log(`${alvo.name} tem ${alvo.hp} de vida.`)
     }
 }
+
+module.exports = Character

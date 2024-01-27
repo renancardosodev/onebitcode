@@ -1,6 +1,9 @@
-import { Character } from "./character.js";
+const Mage = require("./mage.js")
+const Thief = require("./thief.js")
+const Warrior = require("./warrior.js")
 
-const personagem1 = new Character('Escudeiro', 1000, 100, 50)
-const personagem2 = new Character('Ninja', 2000, 200, 100)
 
-personagem1.attack(personagem2)
+const personagem1 = new Mage(20,'Escudeiro', 1000, 100, 50)
+const personagem2 = new Thief('Ninja', 2000, 200, 10)
+
+personagem2.attack(personagem1)

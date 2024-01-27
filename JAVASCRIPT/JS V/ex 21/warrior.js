@@ -1,7 +1,8 @@
-import { Character } from "./character.js";
+const Character = require("./character.js")
 
-export class Warrior extends Character {
-    constructor(shield, position) {
+class Warrior extends Character {
+    constructor(shield, position, name, hp, atk, def) {
+        super(name, hp, atk, def)
         this.shield = shield
         this.position = position
         this.defesa()
@@ -10,7 +11,7 @@ export class Warrior extends Character {
     attack(alvo) {
         if(this.position === 'atacar'){
             super.def = 
-            alvo.hp = alvo.def - 2*(super.atk + this.magic)
+            alvo.hp -= super.atk - alvo.def
             alvo.hp <= 0 ? console.log(`${alvo.name} está morto!`): console.log(`${alvo.name} tem ${alvo.hp} de vida.`)
         }else {
             console.log(`${super.name} não consegue atacar, pois ela está no posição de defesa.`)
@@ -28,3 +29,5 @@ export class Warrior extends Character {
         this.defesa()
     }   
 }
+
+module.exports = Warrior
