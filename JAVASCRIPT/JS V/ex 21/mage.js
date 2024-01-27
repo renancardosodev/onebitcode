@@ -4,8 +4,13 @@ export class Mage extends Character {
     constructor(magic) {
         this.magic = magic
     }
-    attack(alvo){
+
+    attack(alvo) {
         alvo.hp = alvo.def - 2*(super.atk + this.magic)
         alvo.hp <= 0 ? console.log(`${alvo.name} está morto!`): console.log(`${alvo.name} tem ${alvo.hp} de vida.`)
+    }
+
+    saveHp(alvo) {
+        alvo.hp += 2*(this.magic)
     }
 }
