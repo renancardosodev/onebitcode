@@ -1,32 +1,28 @@
 const Character = require("./character.js")
 
 class Warrior extends Character {
-    constructor(shield, position, name, hp, atk, def) {
+    constructor(name, hp, atk, def, shield) {
         super(name, hp, atk, def)
         this.shield = shield
-        this.position = position
-        this.defesa()
+        this.position = 'atacar'
     }
 
     attack(alvo) {
         if(this.position === 'atacar'){
-            super.def = 
-            alvo.hp -= super.atk - alvo.def
-            alvo.hp <= 0 ? console.log(`${alvo.name} está morto!`): console.log(`${alvo.name} tem ${alvo.hp} de vida.`)
+           super.attack(alvo)
         }else {
-            console.log(`${super.name} não consegue atacar, pois ela está no posição de defesa.`)
+            console.log(`${this.name} não consegue atacar, pois ela está no posição de defesa.`)
         }
     }
 
-    defesa() {
-        if(this.position === 'defesa') {
-            super.def += this.shield
+    changePosition() {
+        if(this.position === 'defender') {
+            this.position = 'atacar'
+            this.def += this.shield
+        }else {
+            this.position = 'defender'
+            this.def -= this.shield
         }
-    }
-
-    changePosition(position) {
-        this.position = position
-        this.defesa()
     }   
 }
 

@@ -1,7 +1,7 @@
 const Character = require("./character.js")
 
 class Mage extends Character {
-    constructor(magic, name, hp, atk, def) {
+    constructor(name, hp, atk, def, magic) {
         super(name, hp, atk, def)
         this.magic = magic
     }
