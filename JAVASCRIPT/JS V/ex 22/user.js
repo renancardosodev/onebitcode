@@ -1,8 +1,10 @@
+const Account = require("./account.js")
+
 class User {
-    constructor(userName, email, account) {
+    constructor(userName, email) {
         this.userName = userName
         this.email = email
-        this.account = account
+        this.account = new Account(this)
     }
 }
 

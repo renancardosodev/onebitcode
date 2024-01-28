@@ -8,34 +8,46 @@ class App {
     static #listUsers = []
 
     static createNewUser(name, email) {
-        const resp = App.#listUsers.find(e => e.email === email)
-        if(!resp) {
-            new User(name, email, App.#listUsers.length+1)
+        const user = App.findUser(email)
+        if(!user) {
+            new User(name, email)
         }else {
             console.log('Já existe esse usuário.')
         }
     }
 
     static findUser(email){
-        return App.#listUsers.find(e => e.email === email)
+        return App.#listUsers.find(e => e.email === email) ?? null
     }
 
     static makeTransfer(userSend, userReceive, valueTransfer) {
-        const transfer = new Transfer(userSend, userReceive, valueTransfer)
-        Account.addTransfer(transfer)
+        const to = App.findUser(userReceive)
+        const from = App.findUser(userSend)
+
+        if(to && from) {
+            const transfer = new Transfer(userSend, userReceive, valueTransfer)
+            to.account.addTransfer(transfer)
+            from.account.addTransfer(transfer)
+        }
     }
 
-    static makeDeposit(valueDeposit) {
-        const deposit = new Deposit(valueDeposit)
-        Account.addDeposit(deposit)
+    static makeDeposit(email, valueDeposit) {
+        const user = App.findUser(email)
+        if(user) {
+            const deposit = new Deposit(valueDeposit)
+            user.account.addDeposit(deposit)
+        }
     }
 
-    static makeLoan(valueLoan, qntSimilarities) {
-        const loan = new Loan(valueLoan, qntSimilarities)
-        Account.addLoan(loan)
+    static makeLoan(email, valueLoan, qntSimilarities) {
+        const user = App.findUser(email)
+        if(user) {
+            const loan = new Loan(valueLoan, qntSimilarities)
+            user.account.addLoan(loan)
+        }
     }
 
     changeRateLoan(newRate) {
-        new Loan.setTaxa(newRate)
+        Loan.setTaxa = newRate
     }
 }
