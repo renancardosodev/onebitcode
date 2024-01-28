@@ -1,4 +1,3 @@
-const Account = require("./account.js")
 const Deposit = require("./deposit.js")
 const Loan = require("./loan.js")
 const Transfer = require("./transfer.js")
@@ -10,7 +9,7 @@ class App {
     static createNewUser(name, email) {
         const user = App.findUser(email)
         if(!user) {
-            new User(name, email)
+            this.#listUsers.push(new User(name, email))
         }else {
             console.log('Já existe esse usuário.')
         }
@@ -47,7 +46,9 @@ class App {
         }
     }
 
-    changeRateLoan(newRate) {
+    static changeRateLoan(newRate) {
         Loan.setTaxa = newRate
     }
 }
+
+module.exports = App

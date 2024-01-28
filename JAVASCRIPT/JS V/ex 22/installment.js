@@ -1,4 +1,4 @@
-class Installment extends Loan {
+class Installment{
     constructor(valueLoan, numSimilarities) {
         this.numSimilarities = numSimilarities
         this.valueLoan = valueLoan
