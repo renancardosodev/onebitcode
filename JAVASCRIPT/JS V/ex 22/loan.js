@@ -1,18 +1,24 @@
-class Loan {
-    static #rate
+const Installment = require("./installment.js")
 
-    constructor(valueLoan, numSimilarities) {
-        this.valueLoan = valueLoan
+class Loan {
+    static #rate = 1.1
+
+    constructor(value, qntInstallments) {
+        this.value = value
+        this.installments = []
         this.initDate = new Date()
-        this.similarities = this.valueLoan / numSimilarities
+
+        for(let i = 1 ; i<=qntInstallments ; i++){
+            this.installments.push(new Installment((value*Loan.#rate/qntInstallments), i))
+        }
     }
 
-    get getRate() {
+    static get getRate() {
         return Loan.#rate
     }
 
-    set setTaxa(newRate) {
-        Loan.#rate = newRate
+    static set setTaxa(newRate) {
+        Loan.#rate = 1 + (newRate/100)
     }
 }
 

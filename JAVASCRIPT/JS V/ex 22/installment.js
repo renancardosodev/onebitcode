@@ -1,9 +1,8 @@
-const Loan = require("./loan.js");
-
 class Installment extends Loan {
-    constructor(valueLoan, numSimilarities, installment) {
-        super(valueLoan, numSimilarities)
-        this.initDate = new Date()
+    constructor(valueLoan, numSimilarities) {
+        this.numSimilarities = numSimilarities
+        this.valueLoan = valueLoan
+        this.status = 'pending'
     }
 }
 

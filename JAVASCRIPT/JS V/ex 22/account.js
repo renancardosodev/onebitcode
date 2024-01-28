@@ -1,38 +1,37 @@
-const Deposit = require("./deposit.js")
-const Loan = require("./loan.js")
-const Transfer = require("./transfer.js")
-const User = require("./user.js")
-
 class Account {
     #balance
-    constructor(deposits, transfers, loans, user) {
-        this.deposits = deposits
-        this.transfers = transfers
-        this.loans = loans
+
+    constructor(user) {
         this.user = user
+        this.deposits = []
+        this.transfers = []
+        this.loans = []
+        this.#balance = 0
     }
 
-    makeTransfer(userSend, userReceive, valueTransfer) {
-        const transfer = new Transfer(userSend, userReceive, valueTransfer)
-        const user = new User()
-        
-        if(transfer.userReceive === user.email) {
+    get balance() {
+        return this.#balance
+    }
+
+    addTransfer(transfer) {
+        if(transfer.userReceive === this.user.email) {
             this.#balance += transfer.valueTransfer
-        }else {
+            this.transfers.push(transfer)
+        }else if(transfer.userSend === this.user.email) {
             this.#balance -= transfer.valueTransfer
+            this.transfers.push(transfer)
+        }else {
+            console.log('Error')
         }
-        this.transfers.push(transfer)
     }
 
-    makeDeposit() {
-        const deposit = new Deposit()
+    addDeposit(deposit) {
         this.#balance += deposit.valueDeposit
         this.deposits.push(deposit)
     }
 
-    makeLoan() {
-        const loan = new Loan()
-        this.#balance += loan.valueLoan
+    addLoan(loan) {
+        this.#balance += loan.value
         this.loans.push(loan)
     }
 }
