@@ -17,7 +17,7 @@ function SaveSpaceship(spaceships, name, pilot, crewLimit) {
     }
 }
 function verification(spaceships, name) {
-    return !spaceships.find((e) => e.name === name);
+    return !spaceships.some((e) => e.name === name);
 }
 function addCrew(crew, crewLimit) {
     let resp;
@@ -34,11 +34,36 @@ function addCrew(crew, crewLimit) {
         }
     } while (resp === 1);
 }
+function initMission(spaceships, nameNav) {
+    if (!verification(spaceships, nameNav)) {
+        const existSpaceship = spaceships.find(e => e.name === nameNav);
+        existSpaceship.inMission = true;
+        alert(`A nave ${nameNav} está em missão para salvar a humanidade`);
+    }
+    else {
+        alert('Essa nave não existe');
+    }
+}
+function listAll(spaceships) {
+    let allSpaceships = '';
+    spaceships.forEach(e => {
+        allSpaceships +=
+            `\n
+        Nave: ${e.name}
+        Piloto: ${e.pilot}
+        Tripulação: ${e.crew}
+        Tripulação máxima: ${e.crewLimit}
+        Missão: ${e.inMission}`;
+    });
+    alert(`Todas as naves:${allSpaceships}`);
+}
 function menu() {
     return Number(prompt(`MENU\n
     1 - Adicionar nave\n
     2 - Adicionar tripulante\n
-    3 - SAIR`));
+    3 - Enviar nava em uma missão\n
+    4 - Listar todas as naves\n
+    5 - SAIR`));
 }
 let nameNav;
 let resp;
@@ -63,15 +88,21 @@ do {
             console.log(existSpaceship);
             if (existSpaceship) {
                 addCrew(existSpaceship.crew, existSpaceship.crewLimit);
-                console.log(existSpaceship.crew);
             }
             else {
                 alert('Essa nave não existe');
             }
             break;
         case 3:
+            nameNav = prompt('Informe o nome da nave:');
+            initMission(spaceships, nameNav);
+            break;
+        case 4:
+            listAll(spaceships);
+            break;
+        case 5:
             break;
         default:
             alert('Esse número não é válido');
     }
-} while (resp !== 3);
+} while (resp !== 5);
