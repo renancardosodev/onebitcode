@@ -1,27 +1,71 @@
 function SaveSpaceship(spaceships, name, pilot, crewLimit) {
-    const spaceship = {
-        name,
-        pilot,
-        crewLimit,
+    const newSpaceship = {
+        name: name,
+        pilot: pilot,
+        crewLimit: crewLimit,
         crew: [],
         inMission: false
     };
-    // if(verification(spaceships, spaceship.name)){
-    //     spaceships.push(spaceship)
-    // }else{
-    //     alert('Essa nave já existe');
-    // }
-    return spaceship;
+    newSpaceship.name = name;
+    newSpaceship.pilot = pilot;
+    newSpaceship.crewLimit = crewLimit;
+    if (verification(spaceships, name)) {
+        spaceships.push(newSpaceship);
+    }
+    else {
+        alert('Essa nave já existe');
+    }
 }
-// function verification(spaceships: object[], name:string) {
-//     let resp = spaceships.find((e:object) => e.name === name);
-//     return !resp? true: false
-// }
-function AddCrew(crew, crewLimit) {
+function verification(spaceships, name) {
+    return !spaceships.find((e) => e.name === name);
 }
+function addCrew(crew, crewLimit) {
+    if (crewLimit > crew.length) {
+        const tripulante = prompt('Informe o nome do tripulante');
+        crew.push(tripulante);
+    }
+    else {
+        alert('Não há espaço na tripulação.');
+    }
+}
+function menu() {
+    return Number(prompt(`MENU\n
+    1 - Adicionar nave\n
+    2 - Adicionar tripulante\n
+    3 - SAIR`));
+}
+let nameNav;
+let resp;
 const spaceships = [];
-const nameNav = prompt('Informe o nome da nave:');
-const pilot = prompt('Informe o nome do piloto:');
-const crewLimit = Number(prompt('Informe o tamanho máximo da tripulação:'));
-let spaceship = SaveSpaceship(spaceships, nameNav, pilot, crewLimit);
-AddCrew(spaceship.crew, spaceship.crewLimit);
+do {
+    resp = menu();
+    switch (resp) {
+        case 1:
+            nameNav = prompt('Informe o nome da nave:');
+            if (!spaceships.some((e) => e.name === nameNav)) {
+                const pilot = prompt('Informe o nome do piloto:');
+                const crewLimit = Number(prompt('Informe o tamanho máximo da tripulação:'));
+                SaveSpaceship(spaceships, nameNav, pilot, crewLimit);
+            }
+            else {
+                alert('Essa nave já existe');
+            }
+            break;
+        case 2:
+            nameNav = prompt('Informe o nome da nave:');
+            const existSpaceship = spaceships.find((e) => e.name === nameNav);
+            console.log(existSpaceship);
+            if (existSpaceship) {
+                addCrew(existSpaceship.crew, existSpaceship.crewLimit);
+                console.log(existSpaceship.crew);
+            }
+            else {
+                alert('Essa nave não existe');
+            }
+            break;
+        case 3:
+            break;
+        default:
+            alert('Esse número não é válido');
+    }
+} while (resp !== 3);
