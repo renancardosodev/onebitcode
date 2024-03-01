@@ -23,12 +23,18 @@ function verification(spaceships: Spaceship[], name:string):boolean {
 }
 
 function addCrew (crew: string[], crewLimit:number) {
-    if(crewLimit>crew.length){
-        const tripulante:string = prompt('Informe o nome do tripulante')
-        crew.push(tripulante)
-    }else{
-        alert('Não há espaço na tripulação.')
-    }
+    let resp: number
+    do{
+        if(crewLimit>crew.length){
+            const tripulante:string = prompt('Informe o nome do tripulante')
+            crew.push(tripulante)
+            resp = Number(prompt(`Deseja adicionar mais um tripulante?\n
+            1 - SIM
+            2 - NÃO`))
+        }else{
+            alert('Não há espaço na tripulação.')
+        }
+    }while(resp === 1)
 }
 
 function menu () {

@@ -20,13 +20,19 @@ function verification(spaceships, name) {
     return !spaceships.find((e) => e.name === name);
 }
 function addCrew(crew, crewLimit) {
-    if (crewLimit > crew.length) {
-        const tripulante = prompt('Informe o nome do tripulante');
-        crew.push(tripulante);
-    }
-    else {
-        alert('Não há espaço na tripulação.');
-    }
+    let resp;
+    do {
+        if (crewLimit > crew.length) {
+            const tripulante = prompt('Informe o nome do tripulante');
+            crew.push(tripulante);
+            resp = Number(prompt(`Deseja adicionar mais um tripulante?\n
+            1 - SIM
+            2 - NÃO`));
+        }
+        else {
+            alert('Não há espaço na tripulação.');
+        }
+    } while (resp === 1);
 }
 function menu() {
     return Number(prompt(`MENU\n
