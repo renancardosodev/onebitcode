@@ -40,8 +40,15 @@ function addCrew (crew: string[], crewLimit:number) {
 function initMission (spaceships:Spaceship[], nameNav:string) {
     if(!verification(spaceships, nameNav)){
         const existSpaceship = spaceships.find(e => e.name === nameNav)
-        existSpaceship.inMission = true
-        alert(`A nave ${nameNav} está em missão para salvar a humanidade`)
+        if(existSpaceship.inMission === true){
+            alert('Essa nave já está em missão')
+        }else if(existSpaceship.crew.length >= existSpaceship.crewLimit/3){
+            existSpaceship.inMission = true
+            alert(`Enviando nave ${nameNav} em missão para salvar a humanidade`)
+        }else{
+            alert('Não há tripulação suficiente')
+        }
+
     }else{
         alert('Essa nave não existe')
     }
