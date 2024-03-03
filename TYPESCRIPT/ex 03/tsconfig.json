@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "outFile": "./dist/script.js",
+        "target": "ESNext"
+    }
+}
