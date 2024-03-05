@@ -19,44 +19,39 @@ function creatUser(user) {
     };
     arrayUsers.push(newUser);
     console.log('Usuário adicionado');
+    console.log(`Dados do ${user.name}\n
+    Id: ${user.id}
+    Nome: ${user.name}
+    Login: ${user.login}
+    Bio: ${user.bio}
+    Repositórios Públicos: ${user.public_repos}`);
 }
-function showUser(arrayUsers) {
-    let numberUser;
+function showUser(userLogin) {
     let user;
+    user = arrayUsers.find(e => e.login === userLogin);
+    typeof user === undefined ? console.log('Usuário não encontrado') : getRepository(user);
+    async function getRepository(user) {
+        const response = await fetch(user.repos_url);
+        const repository = await response.json();
+        console.log(`Dados do ${user.name}\n
+        Id: ${user.id}
+        Nome: ${user.name}
+        Login: ${user.login}
+        Bio: ${user.bio}
+        Repositórios Públicos: ${user.public_repos}
+        Repositórios: ${repository}\n`);
+    }
+}
+function showAllUsers() {
     let menuShowUser = 'Lista de Usuários\n';
-    let resp = false;
     arrayUsers.forEach((e, i) => {
         menuShowUser += `${i + 1} - Nome: ${e.name} |  Login: ${e.login}\n`;
     });
-    if (arrayUsers.length === 0) {
-        console.log('Ainda não há usuários salvos');
-    }
-    else {
-        do {
-            numberUser = Number(prompt(menuShowUser));
-            if (numberUser > arrayUsers.length) {
-                console.log('Esse número de usuário não é valido');
-                resp = true;
-            }
-            else {
-                user = arrayUsers[numberUser - 1];
-                console.log(`Dados do ${user.name}\n
-                Id: ${user.id}
-                Nome: ${user.name}
-                Login: ${user.bio}
-                Repositórios Públicos: ${user.public_repos}`);
-                resp = false;
-            }
-        } while (resp);
-    }
+    console.log(menuShowUser);
 }
 const arrayUsers = [];
 console.log(`MENU\n
     1 - Adicionar usuário getGitHub()
     2 - Ver respositório de um usuário showUser()
-    3 - Listar todos os usuários listAll()
+    3 - Listar todos os usuários showAllUsers()
     4 - SAIR\n`);
-const nameUser = prompt('Informe o usuário:');
-getGitHub(nameUser);
-showUser(arrayUsers);
-console.log(arrayUsers);
