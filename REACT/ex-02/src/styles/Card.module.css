@@ -1,0 +1,36 @@
+.card {
+  background-color:#d7e1e7;
+  border-radius:2rem;
+  width:100rem;
+  height:55rem;
+  display:flex;
+  justify-content:center;
+  padding:5rem;
+  gap: 5rem;
+}
+
+button {
+  background-color: #121212;
+  max-width: 18rem;
+  padding: 2rem 0;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.8rem;
+}
+
+h1 {
+  font-size: 4rem;
+  color: #121212;
+}
+
+p {
+  font-size: 1.8rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
