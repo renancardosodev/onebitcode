@@ -1,5 +1,17 @@
 import Button from "./Button.jsx"
 import styles from "../styles/Card.module.css"
+import PropTypes from "prop-types"
+
+Profile.propTypes = {
+    avatar: PropTypes.string,
+    name: PropTypes.string,
+    bio: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.number,
+    githubUrl: PropTypes.string,
+    linkedinUrl: PropTypes.string,
+    twitterUrl: PropTypes.string
+}
 
 export default function Profile ({avatar, name, bio, email, phone, githubUrl, linkedinUrl, twitterUrl}) {
     return (
